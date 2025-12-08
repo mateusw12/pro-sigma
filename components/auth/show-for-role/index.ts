@@ -1,1 +1,1 @@
-export * from './ShowForRole'
+export * from './ShowForRole';

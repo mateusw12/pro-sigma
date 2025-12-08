@@ -2,9 +2,9 @@
 
 import DashboardLayout from '@/components/DashboardLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import styled from 'styled-components';
-import { Card, Form, InputNumber, Button, Table } from 'antd';
 import { DollarOutlined } from '@ant-design/icons';
+import { Button, Card, Form, InputNumber, Table } from 'antd';
+import styled from 'styled-components';
 
 const Title = styled.h1`
   font-size: 24px;
@@ -22,7 +22,10 @@ const WarrantyCostsPage = () => {
 
         <Card title="Parâmetros de Análise">
           <Form layout="vertical">
-            <Form.Item label="Período de Garantia (meses)" name="warrantyPeriod">
+            <Form.Item
+              label="Período de Garantia (meses)"
+              name="warrantyPeriod"
+            >
               <InputNumber min={1} style={{ width: '100%' }} />
             </Form.Item>
 
@@ -36,7 +39,12 @@ const WarrantyCostsPage = () => {
             </Form.Item>
 
             <Form.Item label="Taxa de Falha (%)" name="failureRate">
-              <InputNumber min={0} max={100} step={0.1} style={{ width: '100%' }} />
+              <InputNumber
+                min={0}
+                max={100}
+                step={0.1}
+                style={{ width: '100%' }}
+              />
             </Form.Item>
 
             <Button type="primary">Calcular Custos</Button>

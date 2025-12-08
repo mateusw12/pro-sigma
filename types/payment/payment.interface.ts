@@ -1,6 +1,6 @@
 // Tipos para requisições de pagamento
 
-import { PlanType } from "../plan/plan-type.enum";
+import { PlanType } from '../plan/plan-type.enum';
 
 export type PaymentMethod = 'credit_card' | 'pix' | 'boleto';
 

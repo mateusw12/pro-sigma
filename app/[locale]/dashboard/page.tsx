@@ -26,15 +26,17 @@ const DashboardPage = () => {
 
         <QuickAccessCard>
           <h2>{t('startNewAnalysis')}</h2>
-          <p style={{ marginBottom: 16 }}>
-            {t('uploadFileDesc')}
-          </p>
+          <p style={{ marginBottom: 16 }}>{t('uploadFileDesc')}</p>
           <Button
             type="primary"
             size="large"
             icon={<FileAddOutlined />}
             onClick={() => router.push(`/${locale}/workspace`)}
-            style={{ background: 'white', color: '#667eea', borderColor: 'white' }}
+            style={{
+              background: 'white',
+              color: '#667eea',
+              borderColor: 'white',
+            }}
           >
             {t('goToWorkspace')}
           </Button>

@@ -7,7 +7,7 @@ import { withAuth } from '@/components/auth';
 import { UserRole } from '@/types';
 
 function DashboardPage() {
-  return <div>Dashboard - Qualquer usuário autenticado</div>;
+return <div>Dashboard - Qualquer usuário autenticado</div>;
 }
 
 export default withAuth(DashboardPage);
@@ -18,11 +18,11 @@ export default withAuth(DashboardPage, { requiredRole: UserRole.BASICO });
 // 2. Página que requer plano PRO ou superior
 // ==========================================
 function AdvancedToolPage() {
-  return <div>Ferramenta Avançada - Apenas PRO</div>;
+return <div>Ferramenta Avançada - Apenas PRO</div>;
 }
 
 export default withAuth(AdvancedToolPage, {
-  requiredRole: UserRole.PRO
+requiredRole: UserRole.PRO
 });
 
 // ==========================================
@@ -31,7 +31,7 @@ export default withAuth(AdvancedToolPage, {
 import { withAdminAuth } from '@/components/auth';
 
 function AdminPanelPage() {
-  return <div>Painel Admin</div>;
+return <div>Painel Admin</div>;
 }
 
 export default withAdminAuth(AdminPanelPage);
@@ -45,15 +45,15 @@ export default withAuth(AdminPanelPage, { adminOnly: true });
 import { withOptionalAuth } from '@/components/auth';
 
 function PublicPage() {
-  const { isAuthenticated } = useAuth();
+const { isAuthenticated } = useAuth();
 
-  return (
-    <div>
-      {isAuthenticated
-        ? 'Conteúdo para usuários autenticados'
-        : 'Conteúdo público'}
-    </div>
-  );
+return (
+<div>
+{isAuthenticated
+? 'Conteúdo para usuários autenticados'
+: 'Conteúdo público'}
+</div>
+);
 }
 
 export default withOptionalAuth(PublicPage);
@@ -62,15 +62,15 @@ export default withOptionalAuth(PublicPage);
 // 5. Com callback customizado
 // ==========================================
 function PremiumPage() {
-  return <div>Conteúdo Premium</div>;
+return <div>Conteúdo Premium</div>;
 }
 
 export default withAuth(PremiumPage, {
-  requiredRole: UserRole.INTERMEDIARIO,
-  onAccessDenied: () => {
-    console.log('Usuário tentou acessar sem permissão');
-    // analytics, logging, etc
-  }
+requiredRole: UserRole.INTERMEDIARIO,
+onAccessDenied: () => {
+console.log('Usuário tentou acessar sem permissão');
+// analytics, logging, etc
+}
 });
 
 // ==========================================
@@ -80,27 +80,27 @@ import { useAuth } from '@/hooks';
 import { UserRole } from '@/types';
 
 function MyComponent() {
-  const { user, role, hasRole, isAdmin } = useAuth();
+const { user, role, hasRole, isAdmin } = useAuth();
 
-  if (hasRole(UserRole.PRO)) {
-    return <div>Conteúdo PRO</div>;
-  }
+if (hasRole(UserRole.PRO)) {
+return <div>Conteúdo PRO</div>;
+}
 
-  if (hasRole(UserRole.INTERMEDIARIO)) {
-    return <div>Conteúdo Intermediário</div>;
-  }
+if (hasRole(UserRole.INTERMEDIARIO)) {
+return <div>Conteúdo Intermediário</div>;
+}
 
-  return <div>Conteúdo Básico</div>;
+return <div>Conteúdo Básico</div>;
 }
 
 // ==========================================
 // 7. Hierarquia de Roles
 // ==========================================
-// GUEST = 0       -> Não autenticado
-// BASICO = 1      -> Plano básico
+// GUEST = 0 -> Não autenticado
+// BASICO = 1 -> Plano básico
 // INTERMEDIARIO = 2 -> Plano intermediário (tem acesso a BASICO também)
-// PRO = 3         -> Plano pro (tem acesso a BASICO e INTERMEDIARIO)
-// ADMIN = 4       -> Admin (tem acesso a tudo)
+// PRO = 3 -> Plano pro (tem acesso a BASICO e INTERMEDIARIO)
+// ADMIN = 4 -> Admin (tem acesso a tudo)
 
 // ==========================================
 // 8. Exemplo de página de planos refatorada
@@ -113,20 +113,20 @@ import { UserRole } from '@/types';
 import { DashboardLayout } from '@/components/layout';
 
 function PlansPage() {
-  const { user, plan, isAdmin } = useAuth();
+const { user, plan, isAdmin } = useAuth();
 
-  return (
-    <DashboardLayout>
-      <div>
-        <h1>Gerenciar Plano</h1>
-        {isAdmin ? (
-          <p>Você é administrador</p>
-        ) : (
-          <p>Seu plano atual: {plan}</p>
-        )}
-      </div>
-    </DashboardLayout>
-  );
+return (
+<DashboardLayout>
+<div>
+<h1>Gerenciar Plano</h1>
+{isAdmin ? (
+<p>Você é administrador</p>
+) : (
+<p>Seu plano atual: {plan}</p>
+)}
+</div>
+</DashboardLayout>
+);
 }
 
 // Apenas usuários autenticados (BASICO ou superior)

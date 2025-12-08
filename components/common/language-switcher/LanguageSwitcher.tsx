@@ -1,13 +1,12 @@
 'use client';
 
-import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
 import { Select } from 'antd';
+import { useLocale } from 'next-intl';
 import Image from 'next/image';
-import { StyledSelect, OptionContent, FlagIcon } from './styled';
+import { usePathname, useRouter } from 'next/navigation';
+import { FlagIcon, OptionContent, StyledSelect } from './styled';
 
 const { Option } = Select;
-
 
 export default function LanguageSwitcher() {
   const locale = useLocale();

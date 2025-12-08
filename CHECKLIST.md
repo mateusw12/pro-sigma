@@ -14,18 +14,21 @@
 ## ✅ Fase 2: Páginas e Componentes (COMPLETO)
 
 ### Autenticação
+
 - [x] Página de Login (`/auth/signin`)
 - [x] Página de Cadastro (`/auth/signup`)
 - [x] Configuração NextAuth API Route
 - [x] Componente ProtectedRoute
 
 ### Layout
+
 - [x] Landing Page (`/`)
 - [x] Dashboard Layout com Sidebar
 - [x] Header com info do usuário
 - [x] Menu lateral navegável
 
 ### Ferramentas - Plano Básico
+
 - [x] Variability
 - [x] Process Capability
 - [x] Hypothesis Test
@@ -34,6 +37,7 @@
 - [x] COV EMS
 
 ### Ferramentas - Plano Intermediário
+
 - [x] Text Analysis
 - [x] Normalization Test
 - [x] Control Charts
@@ -41,6 +45,7 @@
 - [x] Dashboard
 
 ### Ferramentas - Plano Pro
+
 - [x] Simple Regression
 - [x] Multiple Regression
 - [x] Multivariate
@@ -50,11 +55,13 @@
 - [x] Warranty Costs
 
 ### Suporte
+
 - [x] Página de Suporte
 
 ## 🔄 Fase 3: Backend Python (A FAZER)
 
 ### Setup Inicial
+
 - [ ] Criar projeto Python
 - [ ] Instalar FastAPI/Flask
 - [ ] Configurar CORS
@@ -62,6 +69,7 @@
 - [ ] Criar models (User, Analysis, etc)
 
 ### Autenticação
+
 - [ ] Endpoint de registro (`/api/auth/register`)
 - [ ] Endpoint de login (`/api/auth/login`)
 - [ ] Geração de JWT
@@ -69,6 +77,7 @@
 - [ ] Validação de planos
 
 ### Análises Estatísticas
+
 - [ ] Endpoint Variability (`/api/analyze/variability`)
 - [ ] Endpoint Process Capability (`/api/analyze/process-capability`)
 - [ ] Endpoint Hypothesis Test (`/api/analyze/hypothesis-test`)
@@ -90,6 +99,7 @@
 ## 🔨 Fase 4: Implementação Frontend (A FAZER)
 
 ### Upload de Dados
+
 - [ ] Componente FileUpload
 - [ ] Parser CSV
 - [ ] Parser Excel
@@ -97,6 +107,7 @@
 - [ ] Preview de dados carregados
 
 ### Gráficos (Chart.js)
+
 - [ ] Configurar Chart.js globalmente
 - [ ] Componente LineChart
 - [ ] Componente BarChart
@@ -107,6 +118,7 @@
 - [ ] Componente ParetoChart
 
 ### Integração com API
+
 - [ ] Conectar Variability com backend
 - [ ] Conectar Process Capability com backend
 - [ ] Conectar Hypothesis Test com backend
@@ -125,6 +137,7 @@
 - [ ] Conectar Text Analysis com backend
 
 ### Funcionalidades Gerais
+
 - [ ] Loading states
 - [ ] Error handling
 - [ ] Toast notifications
@@ -134,17 +147,20 @@
 ## 💾 Fase 5: Persistência de Dados (A FAZER)
 
 ### Banco de Dados
+
 - [ ] Setup PostgreSQL/MongoDB
 - [ ] Migrations
 - [ ] Seeders para testes
 
 ### Modelos
+
 - [ ] Model User
 - [ ] Model Analysis
 - [ ] Model Project
 - [ ] Model Report
 
 ### CRUD
+
 - [ ] Salvar análises
 - [ ] Listar análises salvas
 - [ ] Editar análises
@@ -154,24 +170,28 @@
 ## 📊 Fase 6: Features Avançadas (A FAZER)
 
 ### Dashboard
+
 - [ ] Estatísticas do usuário
 - [ ] Gráficos resumo
 - [ ] Últimas análises
 - [ ] Ferramentas mais usadas
 
 ### Relatórios
+
 - [ ] Template de relatório
 - [ ] Geração PDF
 - [ ] Exportação Excel
 - [ ] Compartilhamento de relatórios
 
 ### Histórico
+
 - [ ] Página de histórico
 - [ ] Filtros por data
 - [ ] Filtros por tipo de análise
 - [ ] Busca
 
 ### Colaboração
+
 - [ ] Compartilhar projetos
 - [ ] Comentários
 - [ ] Versionamento
@@ -179,12 +199,14 @@
 ## 💳 Fase 7: Pagamentos (A FAZER)
 
 ### Integração
+
 - [ ] Stripe ou Mercado Pago
 - [ ] Planos de assinatura
 - [ ] Webhook para pagamentos
 - [ ] Upgrade/Downgrade de plano
 
 ### Controle de Acesso
+
 - [ ] Middleware verificar plano
 - [ ] Bloquear ferramentas por plano
 - [ ] Mensagens de upgrade
@@ -201,11 +223,13 @@
 ## 🧪 Fase 9: Testes (A FAZER)
 
 ### Frontend
+
 - [ ] Testes unitários (Jest)
 - [ ] Testes de componentes (React Testing Library)
 - [ ] Testes E2E (Playwright)
 
 ### Backend
+
 - [ ] Testes unitários (pytest)
 - [ ] Testes de integração
 - [ ] Testes de API
@@ -213,6 +237,7 @@
 ## 🚀 Fase 10: Deploy (A FAZER)
 
 ### Frontend
+
 - [ ] Build otimizado
 - [ ] Deploy Vercel
 - [ ] Configurar domínio
@@ -220,6 +245,7 @@
 - [ ] Analytics
 
 ### Backend
+
 - [ ] Containerização (Docker)
 - [ ] Deploy (Railway/Render/AWS)
 - [ ] Configurar domínio API
@@ -227,6 +253,7 @@
 - [ ] Monitoring
 
 ### Banco de Dados
+
 - [ ] Deploy database
 - [ ] Backups automáticos
 - [ ] Replicação
@@ -254,24 +281,28 @@
 ## 🎯 Prioridades Imediatas
 
 ### Sprint 1 (Esta Semana)
+
 1. ⭐ Criar backend básico com FastAPI
 2. ⭐ Implementar autenticação completa
 3. ⭐ Criar endpoint de Variability
 4. ⭐ Conectar frontend com Variability
 
 ### Sprint 2 (Próxima Semana)
+
 1. Implementar mais 3 ferramentas básicas
 2. Adicionar upload de CSV
 3. Criar componentes de gráficos
 4. Implementar salvamento de análises
 
 ### Sprint 3 (Terceira Semana)
+
 1. Implementar todas ferramentas do plano básico
 2. Adicionar exportação de dados
 3. Criar dashboard funcional
 4. Testes básicos
 
 ### Sprint 4 (Quarta Semana)
+
 1. Ferramentas plano intermediário
 2. Ferramentas plano pro
 3. Sistema de pagamentos

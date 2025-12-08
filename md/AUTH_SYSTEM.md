@@ -8,11 +8,11 @@ Sistema completo de autenticação com controle de acesso baseado em **roles hie
 
 ```typescript
 enum UserRole {
-  GUEST = 0,          // Não autenticado
-  BASICO = 1,         // Plano Básico
-  INTERMEDIARIO = 2,  // Plano Intermediário (herda BASICO)
-  PRO = 3,            // Plano Pro (herda BASICO + INTERMEDIARIO)
-  ADMIN = 4,          // Administrador (acesso total)
+  GUEST = 0, // Não autenticado
+  BASICO = 1, // Plano Básico
+  INTERMEDIARIO = 2, // Plano Intermediário (herda BASICO)
+  PRO = 3, // Plano Pro (herda BASICO + INTERMEDIARIO)
+  ADMIN = 4, // Administrador (acesso total)
 }
 ```
 
@@ -32,6 +32,7 @@ enum UserRole {
 Use para proteger páginas completas.
 
 #### Sintaxe Básica
+
 ```typescript
 import { withAuth } from '@/components/auth';
 
@@ -46,11 +47,11 @@ export default withAuth(MyPage);
 
 ```typescript
 interface WithAuthOptions {
-  requiredRole?: UserRole;        // Role mínimo necessário (padrão: BASICO)
-  redirectToSignin?: boolean;     // Redireciona para login (padrão: true)
-  redirectUrl?: string;           // URL de redirecionamento (padrão: '/auth/signin')
-  adminOnly?: boolean;            // Apenas admin (padrão: false)
-  onAccessDenied?: () => void;    // Callback quando acesso negado
+  requiredRole?: UserRole; // Role mínimo necessário (padrão: BASICO)
+  redirectToSignin?: boolean; // Redireciona para login (padrão: true)
+  redirectUrl?: string; // URL de redirecionamento (padrão: '/auth/signin')
+  adminOnly?: boolean; // Apenas admin (padrão: false)
+  onAccessDenied?: () => void; // Callback quando acesso negado
 }
 ```
 
@@ -83,7 +84,7 @@ export default withAuth(AnalyticsPage, {
   onAccessDenied: () => {
     // Log de analytics, tracking, etc
     console.log('Acesso negado à página de analytics');
-  }
+  },
 });
 ```
 
@@ -97,13 +98,13 @@ Use para obter informações do usuário autenticado e verificar permissões.
 
 ```typescript
 interface UseAuthReturn {
-  user: Session['user'] | null;     // Dados do usuário
-  isAuthenticated: boolean;          // Se está autenticado
-  isLoading: boolean;                // Se está carregando
-  isAdmin: boolean;                  // Se é administrador
-  plan: string | null;               // Plano atual
-  role: UserRole;                    // Role atual
-  hasRole: (role: UserRole) => boolean;  // Verifica se tem role
+  user: Session['user'] | null; // Dados do usuário
+  isAuthenticated: boolean; // Se está autenticado
+  isLoading: boolean; // Se está carregando
+  isAdmin: boolean; // Se é administrador
+  plan: string | null; // Plano atual
+  role: UserRole; // Role atual
+  hasRole: (role: UserRole) => boolean; // Verifica se tem role
 }
 ```
 
@@ -240,12 +241,7 @@ import { AdminOnly } from '@/components/auth';
 ### 4. Funções Utilitárias
 
 ```typescript
-import {
-  hasPermission,
-  getRoleFromPlan,
-  isAdmin,
-  getRoleName
-} from '@/types';
+import { hasPermission, getRoleFromPlan, isAdmin, getRoleName } from '@/types';
 
 // Verificar permissão
 const canAccess = hasPermission(UserRole.INTERMEDIARIO, UserRole.BASICO); // true
@@ -305,6 +301,7 @@ export default withAuth(DashboardPage);
 ```
 
 **Vantagens:**
+
 - ✅ Menos código (remove wrapper)
 - ✅ Mais limpo e declarativo
 - ✅ Controle granular por role
@@ -316,17 +313,20 @@ export default withAuth(DashboardPage);
 ## 📊 Sugestão de Roles por Ferramenta
 
 ### Ferramentas Básicas (BASICO)
+
 - Estatísticas Descritivas
 - Capacidade do Processo
 - Gráficos de Controle Simples
 
 ### Ferramentas Intermediárias (INTERMEDIARIO)
+
 - Gráficos de Controle Avançados
 - Testes de Hipótese
 - Testes de Normalização
 - Regressão Simples
 
 ### Ferramentas Avançadas (PRO)
+
 - DOE (Design of Experiments)
 - Monte Carlo
 - Análise Multivariada
@@ -336,6 +336,7 @@ export default withAuth(DashboardPage);
 - Custos de Garantia
 
 ### Admin (ADMIN)
+
 - Gerenciamento de Usuários
 - Configurações do Sistema
 - Analytics Completo
@@ -493,12 +494,12 @@ export default withOptionalAuth(LandingPage);
 
 ## 🎓 Resumo Rápido
 
-| Uso | Ferramenta | Exemplo |
-|-----|-----------|---------|
-| Proteger página inteira | `withAuth` | `export default withAuth(Page)` |
-| Apenas admin | `withAdminAuth` | `export default withAdminAuth(Page)` |
-| Obter dados do usuário | `useAuth()` | `const { user, isAdmin } = useAuth()` |
-| Verificar permissão | `hasRole()` | `hasRole(UserRole.PRO)` |
-| Mostrar conteúdo condicional | `<RequireRole>` | `<RequireRole role={UserRole.PRO}>` |
-| Esconder para role | `<HideForRole>` | `<HideForRole role={UserRole.PRO}>` |
-| Apenas admin | `<AdminOnly>` | `<AdminOnly>...</AdminOnly>` |
+| Uso                          | Ferramenta      | Exemplo                               |
+| ---------------------------- | --------------- | ------------------------------------- |
+| Proteger página inteira      | `withAuth`      | `export default withAuth(Page)`       |
+| Apenas admin                 | `withAdminAuth` | `export default withAdminAuth(Page)`  |
+| Obter dados do usuário       | `useAuth()`     | `const { user, isAdmin } = useAuth()` |
+| Verificar permissão          | `hasRole()`     | `hasRole(UserRole.PRO)`               |
+| Mostrar conteúdo condicional | `<RequireRole>` | `<RequireRole role={UserRole.PRO}>`   |
+| Esconder para role           | `<HideForRole>` | `<HideForRole role={UserRole.PRO}>`   |
+| Apenas admin                 | `<AdminOnly>`   | `<AdminOnly>...</AdminOnly>`          |

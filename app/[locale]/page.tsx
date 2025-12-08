@@ -1,17 +1,21 @@
 'use client';
 
-import { Button } from 'antd';
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { RocketOutlined, BarChartOutlined, LineChartOutlined } from '@ant-design/icons';
 import {
-  Container,
-  Hero,
-  Title,
-  Subtitle,
+  BarChartOutlined,
+  LineChartOutlined,
+  RocketOutlined,
+} from '@ant-design/icons';
+import { Button } from 'antd';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import {
   ButtonGroup,
-  FeatureSection,
+  Container,
   FeatureCard,
+  FeatureSection,
+  Hero,
+  Subtitle,
+  Title,
 } from '../styles';
 
 export default function Home() {
@@ -24,9 +28,7 @@ export default function Home() {
         <Title>
           <RocketOutlined /> {t('title')}
         </Title>
-        <Subtitle>
-          {t('subtitle')}
-        </Subtitle>
+        <Subtitle>{t('subtitle')}</Subtitle>
         <ButtonGroup>
           <Button
             type="primary"

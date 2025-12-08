@@ -1,21 +1,27 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { Layout, Menu } from 'antd';
 import {
-  DashboardOutlined,
   BarChartOutlined,
-  QuestionCircleOutlined,
-  LogoutOutlined,
   CreditCardOutlined,
+  DashboardOutlined,
+  LogoutOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons';
-import { useRouter } from 'next/navigation';
+import { Layout, Menu } from 'antd';
 import { signOut, useSession } from 'next-auth/react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { ReactNode } from 'react';
 import { LanguageSwitcher } from '../common/language-switcher';
-import { StyledLayout, StyledHeader, Logo, UserInfo, StyledContent } from './styled';
+import {
+  Logo,
+  StyledContent,
+  StyledHeader,
+  StyledLayout,
+  UserInfo,
+} from './styled';
 
-const {  Sider  } = Layout;
+const { Sider } = Layout;
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -60,7 +66,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <Logo>Pro Sigma</Logo>
         <UserInfo>
           <span>{session?.user?.email}</span>
-          <span>Plano: {(session?.user)?.plan}</span>
+          <span>Plano: {session?.user?.plan}</span>
           <LanguageSwitcher />
           <LogoutOutlined
             onClick={() => signOut()}

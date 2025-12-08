@@ -1,9 +1,9 @@
 'use client';
 
-import { Form, Input, Button, message, Select } from 'antd';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
-import { useRouter } from 'next/navigation';
 import api from '@/lib/api/axios';
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Form, Input, message, Select } from 'antd';
+import { useRouter } from 'next/navigation';
 import { Container, StyledCard, Title } from './styles';
 
 const SignUpPage = () => {
@@ -33,7 +33,11 @@ const SignUpPage = () => {
             name="name"
             rules={[{ required: true, message: 'Por favor, insira seu nome!' }]}
           >
-            <Input prefix={<UserOutlined />} placeholder="Nome completo" size="large" />
+            <Input
+              prefix={<UserOutlined />}
+              placeholder="Nome completo"
+              size="large"
+            />
           </Form.Item>
 
           <Form.Item
@@ -62,12 +66,18 @@ const SignUpPage = () => {
 
           <Form.Item
             name="plan"
-            rules={[{ required: true, message: 'Por favor, selecione um plano!' }]}
+            rules={[
+              { required: true, message: 'Por favor, selecione um plano!' },
+            ]}
             initialValue="basico"
           >
             <Select size="large" placeholder="Selecione um plano">
-              <Select.Option value="basico">Básico - R$ 49,90/mês</Select.Option>
-              <Select.Option value="intermediario">Intermediário - R$ 99,90/mês</Select.Option>
+              <Select.Option value="basico">
+                Básico - R$ 49,90/mês
+              </Select.Option>
+              <Select.Option value="intermediario">
+                Intermediário - R$ 99,90/mês
+              </Select.Option>
               <Select.Option value="pro">Pro - R$ 199,90/mês</Select.Option>
             </Select>
           </Form.Item>

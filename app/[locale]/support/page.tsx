@@ -1,9 +1,9 @@
 'use client';
 
-import { DashboardLayout } from '@/components/layout';
 import { ProtectedRoute } from '@/components/auth';
-import { Card, Form, Button } from 'antd';
+import { DashboardLayout } from '@/components/layout';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Button, Card, Form } from 'antd';
 import { Title } from './styles';
 
 const SupportPage = () => {

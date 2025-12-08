@@ -1,14 +1,11 @@
-
-
-
 // ============================================================================
 // APPLICATION LAYER - Use Cases / Services
 // ============================================================================
 
-import { PlanType } from "../auth";
-import { isPlanType, normalizeStringToPlan } from "../plan/plan.helper";
-import { PLAN_ROLE_MAPPING, ROLE_PLAN_MAPPING } from "./role-plan.mapper";
-import { UserRole } from "./user-role.enum";
+import { PlanType } from '../auth';
+import { isPlanType, normalizeStringToPlan } from '../plan/plan.helper';
+import { PLAN_ROLE_MAPPING, ROLE_PLAN_MAPPING } from './role-plan.mapper';
+import { UserRole } from './user-role.enum';
 
 /**
  * Use Case: Converter Plan para Role
@@ -17,7 +14,9 @@ import { UserRole } from "./user-role.enum";
  * @param plan - Plano do usuário (PlanType ou string)
  * @returns UserRole correspondente ou GUEST se inválido
  */
-export function getRoleFromPlan(plan: string | PlanType | null | undefined): UserRole {
+export function getRoleFromPlan(
+  plan: string | PlanType | null | undefined,
+): UserRole {
   if (!plan) return UserRole.GUEST;
 
   // Normaliza para PlanType se for string
@@ -46,7 +45,10 @@ export function getPlanFromRole(role: UserRole): PlanType | 'guest' {
  * @param targetPlan - Plano desejado
  * @returns true se o upgrade é válido
  */
-export function canUpgradeTo(currentRole: UserRole, targetPlan: PlanType): boolean {
+export function canUpgradeTo(
+  currentRole: UserRole,
+  targetPlan: PlanType,
+): boolean {
   const targetRole = getRoleFromPlan(targetPlan);
   return targetRole > currentRole && targetRole !== UserRole.ADMIN;
 }
@@ -58,7 +60,10 @@ export function canUpgradeTo(currentRole: UserRole, targetPlan: PlanType): boole
  * @param targetPlan - Plano desejado
  * @returns true se o downgrade é válido
  */
-export function canDowngradeTo(currentRole: UserRole, targetPlan: PlanType): boolean {
+export function canDowngradeTo(
+  currentRole: UserRole,
+  targetPlan: PlanType,
+): boolean {
   const targetRole = getRoleFromPlan(targetPlan);
   return targetRole < currentRole && currentRole !== UserRole.ADMIN;
 }

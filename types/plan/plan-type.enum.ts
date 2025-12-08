@@ -9,7 +9,7 @@ export enum PlanType {
   ADMIN = 'admin',
 }
 
- /**
+/**
  * Value Object: Nomes legíveis dos planos
  */
 export const PLAN_NAMES: Readonly<Record<PlanType, string>> = {
@@ -17,5 +17,4 @@ export const PLAN_NAMES: Readonly<Record<PlanType, string>> = {
   [PlanType.INTERMEDIARIO]: 'Intermediário',
   [PlanType.PRO]: 'Profissional',
   [PlanType.ADMIN]: 'Administrador',
-} as
- const;
+} as const;

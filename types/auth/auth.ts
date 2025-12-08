@@ -1,8 +1,7 @@
-import { DefaultSession } from "next-auth";
-import { JWT } from "next-auth/jwt";
-import { PlanType } from "../plan/plan-type.enum";
-import { User } from "./user";
-
+import { DefaultSession } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
+import { PlanType } from '../plan/plan-type.enum';
+import { User } from './user';
 
 export interface Session extends DefaultSession {
   user: {
@@ -10,7 +9,7 @@ export interface Session extends DefaultSession {
     email: string;
     name?: string;
     plan: PlanType;
-  } & DefaultSession["user"];
+  } & DefaultSession['user'];
 }
 
 export interface JWTToken extends JWT {

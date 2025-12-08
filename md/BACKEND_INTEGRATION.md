@@ -38,7 +38,7 @@ class HypothesisTestRequest(BaseModel):
 @app.post("/api/analyze/variability")
 async def analyze_variability(request: VariabilityRequest):
     data = np.array(request.data)
-    
+
     return {
         "mean": float(np.mean(data)),
         "std": float(np.std(data)),
@@ -56,7 +56,7 @@ async def hypothesis_test(request: HypothesisTestRequest):
             statistic, pvalue = stats.ttest_ind(request.data1, request.data2)
         else:
             statistic, pvalue = stats.ttest_1samp(request.data1, 0)
-    
+
     return {
         "statistic": float(statistic),
         "pvalue": float(pvalue),
@@ -70,15 +70,15 @@ async def process_capability(request: dict):
     usl = request["usl"]
     lsl = request["lsl"]
     target = request.get("target", (usl + lsl) / 2)
-    
+
     mean = np.mean(data)
     std = np.std(data, ddof=1)
-    
+
     cp = (usl - lsl) / (6 * std)
     cpu = (usl - mean) / (3 * std)
     cpl = (mean - lsl) / (3 * std)
     cpk = min(cpu, cpl)
-    
+
     return {
         "cp": float(cp),
         "cpk": float(cpk),
@@ -92,13 +92,13 @@ async def process_capability(request: dict):
 async def control_chart(request: dict):
     data = np.array(request["data"])
     chart_type = request["chart_type"]
-    
+
     if chart_type == "xbar-r":
         # Implementar lógica X-bar e R
         cl = np.mean(data)
         ucl = cl + 3 * np.std(data)
         lcl = cl - 3 * np.std(data)
-    
+
     return {
         "center_line": float(cl),
         "ucl": float(ucl),
@@ -110,7 +110,7 @@ async def control_chart(request: dict):
 async def normalization_test(request: dict):
     data = np.array(request["data"])
     test = request["test"]
-    
+
     if test == "shapiro-wilk":
         statistic, pvalue = stats.shapiro(data)
     elif test == "kolmogorov-smirnov":
@@ -119,7 +119,7 @@ async def normalization_test(request: dict):
         result = stats.anderson(data)
         statistic = result.statistic
         pvalue = None  # Anderson-Darling não retorna p-value direto
-    
+
     return {
         "statistic": float(statistic),
         "pvalue": float(pvalue) if pvalue else None,
@@ -130,13 +130,13 @@ async def normalization_test(request: dict):
 async def monte_carlo(request: dict):
     iterations = request["iterations"]
     distributions = request["distributions"]
-    
+
     # Implementar simulação Monte Carlo
     results = []
     for _ in range(iterations):
         sample = np.random.normal(0, 1, 1000)
         results.append(sample)
-    
+
     return {
         "results": np.array(results).tolist(),
         "statistics": {
@@ -149,9 +149,9 @@ async def monte_carlo(request: dict):
 async def regression(request: dict):
     x = np.array(request["x"])
     y = np.array(request["y"])
-    
+
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
-    
+
     return {
         "slope": float(slope),
         "intercept": float(intercept),
@@ -256,9 +256,9 @@ const handleHypothesisTest = async () => {
       data1: sample1,
       data2: sample2,
       test_type: 't-test',
-      alpha: 0.05
+      alpha: 0.05,
     });
-    
+
     console.log('P-value:', response.data.pvalue);
     console.log('Conclusão:', response.data.conclusion);
   } catch (error) {
@@ -274,11 +274,16 @@ const handleRegression = async () => {
   try {
     const response = await api.post('/api/analyze/regression', {
       x: xData,
-      y: yData
+      y: yData,
     });
-    
+
     console.log('R²:', response.data.r_squared);
-    console.log('Equação: y =', response.data.slope, '* x +', response.data.intercept);
+    console.log(
+      'Equação: y =',
+      response.data.slope,
+      '* x +',
+      response.data.intercept,
+    );
   } catch (error) {
     message.error('Erro na regressão');
   }
@@ -367,19 +372,19 @@ from database import Base
 
 class User(Base):
     __tablename__ = "users"
-    
+
     id = Column(Integer, primary_key=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     name = Column(String)
     plan = Column(String)
     created_at = Column(DateTime)
-    
+
     analyses = relationship("Analysis", back_populates="user")
 
 class Analysis(Base):
     __tablename__ = "analyses"
-    
+
     id = Column(Integer, primary_key=True)
     name = Column(String)
     type = Column(String)
@@ -387,7 +392,7 @@ class Analysis(Base):
     results = Column(String)  # JSON
     created_at = Column(DateTime)
     user_id = Column(Integer, ForeignKey("users.id"))
-    
+
     user = relationship("User", back_populates="analyses")
 ```
 

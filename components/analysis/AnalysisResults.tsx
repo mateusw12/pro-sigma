@@ -1,8 +1,14 @@
-"use client";
+'use client';
 
-import { Modal, Statistic, Row, Col, Card } from "antd";
-import { AnalysisResultsProps, VariabilityResult, ProcessCapabilityResult, HypothesisTestResult, RegressionResult } from "./analysisResults.interface";
-import { ResultSection, StatCard } from "./styled";
+import { Card, Col, Modal, Row, Statistic } from 'antd';
+import {
+  AnalysisResultsProps,
+  HypothesisTestResult,
+  ProcessCapabilityResult,
+  RegressionResult,
+  VariabilityResult,
+} from './analysisResults.interface';
+import { ResultSection, StatCard } from './styled';
 
 const AnalysisResults = ({
   visible,
@@ -13,7 +19,9 @@ const AnalysisResults = ({
   if (!results) return null;
 
   const renderVariabilityResults = () => {
-    const resultsData = results as { results?: Record<string, VariabilityResult> };
+    const resultsData = results as {
+      results?: Record<string, VariabilityResult>;
+    };
     const columns = Object.keys(resultsData.results || {});
 
     return (
@@ -77,10 +85,15 @@ const AnalysisResults = ({
   };
 
   const renderProcessCapabilityResults = () => {
-    const resultsData = results as { results?: Record<string, ProcessCapabilityResult> };
-    const data = resultsData.results?.["main"] as ProcessCapabilityResult | undefined;
+    const resultsData = results as {
+      results?: Record<string, ProcessCapabilityResult>;
+    };
+    const data = resultsData.results?.['main'] as
+      | ProcessCapabilityResult
+      | undefined;
 
-    if (!data) return null;    return (
+    if (!data) return null;
+    return (
       <div>
         <Row gutter={16}>
           <Col span={6}>
@@ -88,7 +101,9 @@ const AnalysisResults = ({
               <Statistic
                 title="Cp"
                 value={data.cp?.toFixed(3)}
-                valueStyle={{ color: (data.cp ?? 0) >= 1.33 ? "#3f8600" : "#cf1322" }}
+                valueStyle={{
+                  color: (data.cp ?? 0) >= 1.33 ? '#3f8600' : '#cf1322',
+                }}
               />
             </StatCard>
           </Col>
@@ -97,7 +112,9 @@ const AnalysisResults = ({
               <Statistic
                 title="Cpk"
                 value={data.cpk?.toFixed(3)}
-                valueStyle={{ color: (data.cpk ?? 0) >= 1.33 ? "#3f8600" : "#cf1322" }}
+                valueStyle={{
+                  color: (data.cpk ?? 0) >= 1.33 ? '#3f8600' : '#cf1322',
+                }}
               />
             </StatCard>
           </Col>
@@ -106,7 +123,9 @@ const AnalysisResults = ({
               <Statistic
                 title="Pp"
                 value={data.pp?.toFixed(3)}
-                valueStyle={{ color: (data.pp ?? 0) >= 1.33 ? "#3f8600" : "#cf1322" }}
+                valueStyle={{
+                  color: (data.pp ?? 0) >= 1.33 ? '#3f8600' : '#cf1322',
+                }}
               />
             </StatCard>
           </Col>
@@ -115,7 +134,9 @@ const AnalysisResults = ({
               <Statistic
                 title="Ppk"
                 value={data.ppk?.toFixed(3)}
-                valueStyle={{ color: (data.ppk ?? 0) >= 1.33 ? "#3f8600" : "#cf1322" }}
+                valueStyle={{
+                  color: (data.ppk ?? 0) >= 1.33 ? '#3f8600' : '#cf1322',
+                }}
               />
             </StatCard>
           </Col>
@@ -165,7 +186,10 @@ const AnalysisResults = ({
                 title="P-valor"
                 value={data.pvalue?.toFixed(4)}
                 valueStyle={{
-                  color: (data.pvalue ?? 1) < (data.alpha ?? 0.05) ? "#cf1322" : "#3f8600",
+                  color:
+                    (data.pvalue ?? 1) < (data.alpha ?? 0.05)
+                      ? '#cf1322'
+                      : '#3f8600',
                 }}
               />
             </Col>
@@ -174,7 +198,7 @@ const AnalysisResults = ({
           <Card
             style={{
               marginTop: 16,
-              background: data.reject_null ? "#fff2e8" : "#f6ffed",
+              background: data.reject_null ? '#fff2e8' : '#f6ffed',
             }}
           >
             <h3>Conclusão:</h3>
@@ -182,7 +206,7 @@ const AnalysisResults = ({
             {data.confidence_interval && (
               <p style={{ marginTop: 8 }}>
                 Intervalo de Confiança: [
-                {data.confidence_interval[0].toFixed(2)},{" "}
+                {data.confidence_interval[0].toFixed(2)},{' '}
                 {data.confidence_interval[1].toFixed(2)}]
               </p>
             )}
@@ -200,7 +224,7 @@ const AnalysisResults = ({
     return (
       <div>
         <Card title="Equação da Regressão">
-          <h2 style={{ textAlign: "center", color: "#1890ff" }}>
+          <h2 style={{ textAlign: 'center', color: '#1890ff' }}>
             {data.equation}
           </h2>
         </Card>
@@ -212,7 +236,7 @@ const AnalysisResults = ({
                 title="R²"
                 value={data.r_squared?.toFixed(4)}
                 valueStyle={{
-                  color: (data.r_squared ?? 0) >= 0.7 ? "#3f8600" : "#faad14",
+                  color: (data.r_squared ?? 0) >= 0.7 ? '#3f8600' : '#faad14',
                 }}
               />
             </StatCard>
@@ -236,12 +260,14 @@ const AnalysisResults = ({
           <Statistic
             title="P-valor"
             value={data.p_value?.toFixed(6)}
-            valueStyle={{ color: (data.p_value ?? 1) < 0.05 ? "#3f8600" : "#cf1322" }}
+            valueStyle={{
+              color: (data.p_value ?? 1) < 0.05 ? '#3f8600' : '#cf1322',
+            }}
           />
           <p style={{ marginTop: 8 }}>
             {(data.p_value ?? 1) < 0.05
-              ? "A regressão é estatisticamente significativa"
-              : "A regressão não é estatisticamente significativa"}
+              ? 'A regressão é estatisticamente significativa'
+              : 'A regressão não é estatisticamente significativa'}
           </p>
         </Card>
       </div>
@@ -253,10 +279,10 @@ const AnalysisResults = ({
       <div>
         <pre
           style={{
-            background: "#f5f5f5",
+            background: '#f5f5f5',
             padding: 16,
             borderRadius: 4,
-            overflow: "auto",
+            overflow: 'auto',
           }}
         >
           {JSON.stringify(results, null, 2)}
@@ -267,18 +293,18 @@ const AnalysisResults = ({
 
   const renderContent = () => {
     switch (toolName.toLowerCase()) {
-      case "variability":
+      case 'variability':
         return renderVariabilityResults();
-      case "process-capability":
-      case "capacidade de processo":
+      case 'process-capability':
+      case 'capacidade de processo':
         return renderProcessCapabilityResults();
-      case "hypothesis-test":
-      case "teste de hipótese":
+      case 'hypothesis-test':
+      case 'teste de hipótese':
         return renderHypothesisTestResults();
-      case "simple-regression":
-      case "multiple-regression":
-      case "regressão simples":
-      case "regressão múltipla":
+      case 'simple-regression':
+      case 'multiple-regression':
+      case 'regressão simples':
+      case 'regressão múltipla':
         return renderRegressionResults();
       default:
         return renderDefaultResults();

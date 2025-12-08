@@ -71,11 +71,13 @@ pro-sigma/
 ## 🎯 Descrição dos Principais Arquivos
 
 ### Autenticação
+
 - `app/api/auth/[...nextauth]/route.ts` - Configuração do NextAuth com credentials provider
 - `app/auth/signin/page.tsx` - Formulário de login
 - `app/auth/signup/page.tsx` - Formulário de cadastro com seleção de plano
 
 ### Layouts e Componentes
+
 - `components/DashboardLayout.tsx` - Layout padrão do dashboard com:
   - Header com logo e informações do usuário
   - Menu lateral com todas as ferramentas
@@ -86,9 +88,11 @@ pro-sigma/
 - `components/Providers.tsx` - Wrapper com SessionProvider do NextAuth
 
 ### Ferramentas (Tools)
+
 Cada ferramenta tem sua própria página em `app/tools/[nome-ferramenta]/page.tsx`:
 
 #### Plano Básico
+
 1. **Variability** - Análise de variabilidade de dados
 2. **Process Capability** - Cálculo de Cp, Cpk, Pp, Ppk
 3. **Hypothesis Test** - Testes T, Z, ANOVA, Qui-quadrado
@@ -96,6 +100,7 @@ Cada ferramenta tem sua própria página em `app/tools/[nome-ferramenta]/page.ts
 5. **COV EMS** - Análise de coeficiente de variação
 
 #### Plano Intermediário
+
 6. **Text Analysis** - Análise textual e frequência de palavras
 7. **Normalization Test** - Testes de normalidade (Shapiro-Wilk, KS, etc)
 8. **Control Charts** - Cartas X-bar, R, S, P, NP, C, U
@@ -103,6 +108,7 @@ Cada ferramenta tem sua própria página em `app/tools/[nome-ferramenta]/page.ts
 10. **Monte Carlo** - Simulações Monte Carlo
 
 #### Plano Pro
+
 11. **Simple Regression** - Regressão linear simples
 12. **Multiple Regression** - Regressão linear múltipla
 13. **Multivariate** - PCA, Análise Fatorial, Cluster
@@ -112,6 +118,7 @@ Cada ferramenta tem sua própria página em `app/tools/[nome-ferramenta]/page.ts
 17. **Warranty Costs** - Análise de custos de garantia
 
 ### Bibliotecas e Configurações
+
 - `lib/api/axios.ts` - Cliente HTTP configurado para comunicação com backend Python
 - `lib/constants/plans.ts` - Define features por plano e preços
 - `lib/types/index.ts` - Interfaces TypeScript
@@ -149,6 +156,7 @@ const response = await api.post('/analyze/variability', data);
 ## 📊 Estrutura de Dados
 
 ### User
+
 ```typescript
 interface User {
   id: string;
@@ -160,6 +168,7 @@ interface User {
 ```
 
 ### Analysis Data
+
 ```typescript
 interface AnalysisData {
   id: string;

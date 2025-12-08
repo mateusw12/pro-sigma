@@ -1,6 +1,6 @@
-import { User } from "@/types/auth";
-import { PlanType } from "@/types/plan";
-import { UserRole } from "@/types/roles";
+import { User } from '@/types/auth';
+import { PlanType } from '@/types/plan';
+import { UserRole } from '@/types/roles';
 
 // Usuários mockados para desenvolvimento (remover em produção)
 export const mockUsers: Array<User & { password: string; role: UserRole }> = [
@@ -47,9 +47,12 @@ export const mockUsers: Array<User & { password: string; role: UserRole }> = [
 ];
 
 // Função auxiliar para buscar usuário por email e senha
-export const findUserByCredentials = (email: string, password: string): User | null => {
+export const findUserByCredentials = (
+  email: string,
+  password: string,
+): User | null => {
   const user = mockUsers.find(
-    (u) => u.email === email && u.password === password
+    (u) => u.email === email && u.password === password,
   );
 
   if (!user) return null;

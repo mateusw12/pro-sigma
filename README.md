@@ -5,6 +5,7 @@ Sistema completo de análise de dados para metodologia Six Sigma desenvolvido co
 ## 🚀 Tecnologias
 
 ### Frontend
+
 - **Next.js 16** - Framework React com Server Components
 - **React 19** - Biblioteca JavaScript para interfaces
 - **TypeScript** - Superset JavaScript com tipagem estática
@@ -14,24 +15,28 @@ Sistema completo de análise de dados para metodologia Six Sigma desenvolvido co
 - **NextAuth.js** - Autenticação
 
 ### Backend (API Python)
+
 - O backend será desenvolvido separadamente em Python
 - API RESTful para processar análises estatísticas
 
 ## 🛠️ Instalação e Configuração
 
 ### Pré-requisitos
+
 - Node.js 18+
 - npm ou yarn
 
 ### Instalação
 
 1. Instale as dependências:
+
 ```bash
 npm install
 ```
 
 2. Configure as variáveis de ambiente:
-Edite o arquivo `.env.local`:
+   Edite o arquivo `.env.local`:
+
 ```env
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret-key-here-change-in-production
@@ -39,6 +44,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
 3. Execute o projeto em desenvolvimento:
+
 ```bash
 npm run dev
 ```
@@ -48,6 +54,7 @@ npm run dev
 ## 📊 Ferramentas Disponíveis
 
 ### Plano Básico (R$ 49,90/mês)
+
 - ✅ Variability
 - ✅ Índice de Capacidade de Processo
 - ✅ Teste de Hipótese
@@ -56,7 +63,9 @@ npm run dev
 - ✅ COV EMS
 
 ### Plano Intermediário (R$ 99,90/mês)
+
 Inclui tudo do Básico, mais:
+
 - ✅ Análise de Texto
 - ✅ Teste de Normalização
 - ✅ Cartas de Controle
@@ -64,7 +73,9 @@ Inclui tudo do Básico, mais:
 - ✅ Monte Carlo
 
 ### Plano Pro (R$ 199,90/mês)
+
 Inclui tudo do Intermediário, mais:
+
 - ✅ Regressão Simples
 - ✅ Regressão Múltipla
 - ✅ Multivariate
@@ -76,6 +87,7 @@ Inclui tudo do Intermediário, mais:
 ## 🔐 Autenticação
 
 O sistema utiliza NextAuth.js para autenticação com:
+
 - Login por email e senha
 - Sessões JWT
 - Rotas protegidas
@@ -93,4 +105,3 @@ npm run lint     # Verifica erros de lint
 ---
 
 Desenvolvido com ❤️ para profissionais Six Sigma
-

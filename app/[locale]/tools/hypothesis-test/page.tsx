@@ -2,9 +2,9 @@
 
 import DashboardLayout from '@/components/DashboardLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import styled from 'styled-components';
-import { Card, Form, Button, Select, InputNumber } from 'antd';
 import { ExperimentOutlined } from '@ant-design/icons';
+import { Button, Card, Form, InputNumber, Select } from 'antd';
+import styled from 'styled-components';
 
 const Title = styled.h1`
   font-size: 24px;
@@ -32,7 +32,13 @@ const HypothesisTestPage = () => {
             </Form.Item>
 
             <Form.Item label="Nível de Significância (α)" name="alpha">
-              <InputNumber min={0} max={1} step={0.01} defaultValue={0.05} style={{ width: '100%' }} />
+              <InputNumber
+                min={0}
+                max={1}
+                step={0.01}
+                defaultValue={0.05}
+                style={{ width: '100%' }}
+              />
             </Form.Item>
 
             <Button type="primary">Executar Teste</Button>

@@ -3,9 +3,11 @@
 ## 📁 Upload e Gerenciamento de Arquivos
 
 ### POST /api/files/upload
+
 Upload de arquivo CSV ou Excel
 
 **Request:**
+
 ```typescript
 FormData {
   file: File (CSV ou Excel)
@@ -13,6 +15,7 @@ FormData {
 ```
 
 **Response:**
+
 ```json
 {
   "id": "uuid-do-arquivo",
@@ -28,6 +31,7 @@ FormData {
 ```
 
 **Implementação Python (FastAPI):**
+
 ```python
 from fastapi import FastAPI, UploadFile, File, HTTPException
 import pandas as pd
@@ -45,23 +49,23 @@ async def upload_file(file: UploadFile = File(...)):
         # Verificar extensão
         if not file.filename.endswith(('.csv', '.xlsx', '.xls')):
             raise HTTPException(status_code=400, detail="Formato não suportado")
-        
+
         # Ler arquivo
         if file.filename.endswith('.csv'):
             df = pd.read_csv(file.file)
         else:
             df = pd.read_excel(file.file)
-        
+
         # Gerar ID único
         file_id = str(uuid.uuid4())
-        
+
         # Salvar dados
         uploaded_files[file_id] = {
             'dataframe': df,
             'name': file.filename,
             'uploadedAt': datetime.now()
         }
-        
+
         # Preparar resposta
         return {
             "id": file_id,
@@ -71,15 +75,17 @@ async def upload_file(file: UploadFile = File(...)):
             "rows": len(df),
             "uploadedAt": datetime.now().isoformat()
         }
-    
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 ```
 
 ### GET /api/files/{file_id}
+
 Obter informações do arquivo
 
 **Response:**
+
 ```json
 {
   "id": "uuid",
@@ -90,6 +96,7 @@ Obter informações do arquivo
 ```
 
 ### DELETE /api/files/{file_id}
+
 Deletar arquivo
 
 ---
@@ -97,9 +104,11 @@ Deletar arquivo
 ## 🔬 Análises Estatísticas
 
 ### POST /api/analyze/variability
+
 Análise de variabilidade
 
 **Request:**
+
 ```json
 {
   "fileId": "uuid-do-arquivo",
@@ -108,6 +117,7 @@ Análise de variabilidade
 ```
 
 **Response:**
+
 ```json
 {
   "results": {
@@ -133,24 +143,25 @@ Análise de variabilidade
 ```
 
 **Implementação:**
+
 ```python
 @app.post("/api/analyze/variability")
 async def analyze_variability(request: dict):
     file_id = request['fileId']
     columns = request['columns']
-    
+
     if file_id not in uploaded_files:
         raise HTTPException(status_code=404, detail="Arquivo não encontrado")
-    
+
     df = uploaded_files[file_id]['dataframe']
     results = {}
-    
+
     for col in columns:
         if col not in df.columns:
             continue
-            
+
         data = df[col].dropna()
-        
+
         results[col] = {
             "mean": float(data.mean()),
             "std": float(data.std()),
@@ -164,14 +175,16 @@ async def analyze_variability(request: dict):
             "q3": float(data.quantile(0.75)),
             "iqr": float(data.quantile(0.75) - data.quantile(0.25))
         }
-    
+
     return {"results": results}
 ```
 
 ### POST /api/analyze/process-capability
+
 Índices de Capacidade de Processo
 
 **Request:**
+
 ```json
 {
   "fileId": "uuid",
@@ -183,15 +196,16 @@ async def analyze_variability(request: dict):
 ```
 
 **Response:**
+
 ```json
 {
   "results": {
     "cp": 1.33,
     "cpk": 1.25,
-    "cpu": 1.30,
+    "cpu": 1.3,
     "cpl": 1.25,
     "pp": 1.28,
-    "ppk": 1.20,
+    "ppk": 1.2,
     "mean": 89.5,
     "std": 2.5,
     "within_spec": 99.8
@@ -200,9 +214,11 @@ async def analyze_variability(request: dict):
 ```
 
 ### POST /api/analyze/hypothesis-test
+
 Teste de Hipótese
 
 **Request:**
+
 ```json
 {
   "fileId": "uuid",
@@ -214,6 +230,7 @@ Teste de Hipótese
 ```
 
 **Response:**
+
 ```json
 {
   "test": "t-test",
@@ -227,9 +244,11 @@ Teste de Hipótese
 ```
 
 ### POST /api/analyze/control-chart
+
 Cartas de Controle
 
 **Request:**
+
 ```json
 {
   "fileId": "uuid",
@@ -240,6 +259,7 @@ Cartas de Controle
 ```
 
 **Response:**
+
 ```json
 {
   "centerLine": 50.0,
@@ -255,9 +275,11 @@ Cartas de Controle
 ```
 
 ### POST /api/analyze/regression
+
 Regressão
 
 **Request:**
+
 ```json
 {
   "fileId": "uuid",
@@ -268,6 +290,7 @@ Regressão
 ```
 
 **Response:**
+
 ```json
 {
   "slope": 1.5,
@@ -281,23 +304,26 @@ Regressão
 ```
 
 ### POST /api/analyze/monte-carlo
+
 Simulação Monte Carlo
 
 **Request:**
+
 ```json
 {
   "fileId": "uuid",
   "columns": ["Variavel1", "Variavel2"],
   "iterations": 10000,
   "distributions": {
-    "Variavel1": {"type": "normal", "mean": 100, "std": 10},
-    "Variavel2": {"type": "uniform", "min": 50, "max": 150}
+    "Variavel1": { "type": "normal", "mean": 100, "std": 10 },
+    "Variavel2": { "type": "uniform", "min": 50, "max": 150 }
   },
   "formula": "Variavel1 + Variavel2"
 }
 ```
 
 **Response:**
+
 ```json
 {
   "mean": 175.5,
@@ -312,14 +338,16 @@ Simulação Monte Carlo
 ```
 
 ### POST /api/analyze/doe
+
 Design of Experiments
 
 **Request:**
+
 ```json
 {
   "factors": [
-    {"name": "Temperatura", "low": 150, "high": 200},
-    {"name": "Pressão", "low": 10, "high": 20}
+    { "name": "Temperatura", "low": 150, "high": 200 },
+    { "name": "Pressão", "low": 10, "high": 20 }
   ],
   "design": "factorial",
   "replications": 3
@@ -327,13 +355,14 @@ Design of Experiments
 ```
 
 **Response:**
+
 ```json
 {
   "design_matrix": [
-    {"run": 1, "Temperatura": 150, "Pressão": 10},
-    {"run": 2, "Temperatura": 200, "Pressão": 10},
-    {"run": 3, "Temperatura": 150, "Pressão": 20},
-    {"run": 4, "Temperatura": 200, "Pressão": 20}
+    { "run": 1, "Temperatura": 150, "Pressão": 10 },
+    { "run": 2, "Temperatura": 200, "Pressão": 10 },
+    { "run": 3, "Temperatura": 150, "Pressão": 20 },
+    { "run": 4, "Temperatura": 200, "Pressão": 20 }
   ],
   "total_runs": 12
 }
@@ -344,13 +373,14 @@ Design of Experiments
 ## 💾 Banco de Dados
 
 ### Modelo: File
+
 ```python
 from sqlalchemy import Column, String, DateTime, Integer, JSON
 from database import Base
 
 class File(Base):
     __tablename__ = "files"
-    
+
     id = Column(String, primary_key=True)
     user_id = Column(String, ForeignKey("users.id"))
     name = Column(String)
@@ -361,10 +391,11 @@ class File(Base):
 ```
 
 ### Modelo: Analysis
+
 ```python
 class Analysis(Base):
     __tablename__ = "analyses"
-    
+
     id = Column(String, primary_key=True)
     file_id = Column(String, ForeignKey("files.id"))
     user_id = Column(String, ForeignKey("users.id"))
@@ -399,6 +430,7 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
 ## 📊 Storage de Arquivos
 
 Opções:
+
 1. **Local Storage** (desenvolvimento)
 2. **AWS S3** (produção)
 3. **Azure Blob Storage**

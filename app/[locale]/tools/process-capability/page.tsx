@@ -2,9 +2,9 @@
 
 import DashboardLayout from '@/components/DashboardLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import styled from 'styled-components';
-import { Card, Form, InputNumber, Button, Row, Col, Statistic } from 'antd';
 import { FundOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Form, InputNumber, Row, Statistic } from 'antd';
+import styled from 'styled-components';
 
 const Title = styled.h1`
   font-size: 24px;
@@ -28,12 +28,18 @@ const ProcessCapabilityPage = () => {
           <Form layout="vertical" onFinish={onFinish}>
             <Row gutter={16}>
               <Col span={8}>
-                <Form.Item label="Limite Superior de Especificação (USL)" name="usl">
+                <Form.Item
+                  label="Limite Superior de Especificação (USL)"
+                  name="usl"
+                >
                   <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Form.Item label="Limite Inferior de Especificação (LSL)" name="lsl">
+                <Form.Item
+                  label="Limite Inferior de Especificação (LSL)"
+                  name="lsl"
+                >
                   <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
               </Col>

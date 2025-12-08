@@ -9,6 +9,7 @@
 **Descrição:** Processa o pagamento e altera o plano do usuário.
 
 **Headers:**
+
 ```json
 {
   "Authorization": "Bearer {token}",
@@ -17,6 +18,7 @@
 ```
 
 **Body:**
+
 ```json
 {
   "newPlan": "pro",
@@ -31,6 +33,7 @@
 ```
 
 **Campos:**
+
 - `newPlan` (string, required): `"basico"`, `"intermediario"` ou `"pro"`
 - `paymentMethod` (string, required): `"credit_card"`, `"pix"` ou `"boleto"`
 - `paymentData` (object, optional): Necessário apenas para `credit_card`
@@ -40,6 +43,7 @@
   - `cardCVV` (string): Código de segurança (3-4 dígitos)
 
 **Response - Sucesso (200):**
+
 ```json
 {
   "success": true,
@@ -50,6 +54,7 @@
 ```
 
 **Response - PIX (200):**
+
 ```json
 {
   "success": true,
@@ -61,6 +66,7 @@
 ```
 
 **Response - Boleto (200):**
+
 ```json
 {
   "success": true,
@@ -72,6 +78,7 @@
 ```
 
 **Response - Erro (400/402/500):**
+
 ```json
 {
   "success": false,
@@ -89,6 +96,7 @@
 **Descrição:** Consulta o status de um pagamento.
 
 **Headers:**
+
 ```json
 {
   "Authorization": "Bearer {token}"
@@ -96,11 +104,12 @@
 ```
 
 **Response (200):**
+
 ```json
 {
   "id": "pay_abc123",
   "status": "approved",
-  "amount": 199.90,
+  "amount": 199.9,
   "paymentMethod": "credit_card",
   "createdAt": "2025-12-05T10:30:00Z",
   "updatedAt": "2025-12-05T10:31:00Z"
@@ -108,6 +117,7 @@
 ```
 
 **Status possíveis:**
+
 - `pending`: Aguardando pagamento
 - `processing`: Processando
 - `approved`: Aprovado
@@ -123,6 +133,7 @@
 **Descrição:** Lista todas as faturas do usuário autenticado.
 
 **Headers:**
+
 ```json
 {
   "Authorization": "Bearer {token}"
@@ -130,11 +141,13 @@
 ```
 
 **Query Parameters:**
+
 - `status` (optional): Filtrar por status (`paid`, `pending`, `overdue`, `cancelled`)
 - `limit` (optional, default: 10): Número de resultados
 - `offset` (optional, default: 0): Paginação
 
 **Response (200):**
+
 ```json
 {
   "invoices": [
@@ -142,7 +155,7 @@
       "id": "inv_123",
       "userId": "user_456",
       "plan": "pro",
-      "amount": 199.90,
+      "amount": 199.9,
       "status": "paid",
       "dueDate": "2025-12-10T00:00:00Z",
       "paidAt": "2025-12-05T14:30:00Z",
@@ -165,6 +178,7 @@
 **Descrição:** Cancela a assinatura atual do usuário.
 
 **Headers:**
+
 ```json
 {
   "Authorization": "Bearer {token}"
@@ -172,6 +186,7 @@
 ```
 
 **Body:**
+
 ```json
 {
   "reason": "Não estou usando mais o serviço",
@@ -180,6 +195,7 @@
 ```
 
 **Response (200):**
+
 ```json
 {
   "success": true,
@@ -197,6 +213,7 @@
 **Descrição:** Recebe notificações do gateway de pagamento (Stripe/Mercado Pago/etc).
 
 **Headers:**
+
 ```json
 {
   "X-Webhook-Signature": "sha256=abc123...",
@@ -205,17 +222,19 @@
 ```
 
 **Body (exemplo):**
+
 ```json
 {
   "event": "payment.approved",
   "paymentId": "pay_abc123",
   "userId": "user_456",
-  "amount": 199.90,
+  "amount": 199.9,
   "timestamp": "2025-12-05T10:31:00Z"
 }
 ```
 
 **Response (200):**
+
 ```json
 {
   "received": true
@@ -252,16 +271,19 @@
 ## 🔄 Fluxo de Pagamento
 
 ### 1. Cartão de Crédito
+
 ```
 Cliente → Frontend → Backend → Gateway (Stripe/MP) → Backend → Atualiza BD → Resposta
 ```
 
 ### 2. PIX
+
 ```
 Cliente → Frontend → Backend → Gera QR Code → Cliente paga → Webhook → Backend → Atualiza BD
 ```
 
 ### 3. Boleto
+
 ```
 Cliente → Frontend → Backend → Gera Boleto → Cliente paga → Webhook (1-3 dias) → Backend → Atualiza BD
 ```
@@ -271,6 +293,7 @@ Cliente → Frontend → Backend → Gera Boleto → Cliente paga → Webhook (1
 ## 🗄️ Estrutura do Banco de Dados
 
 ### Tabela: `payments`
+
 ```sql
 CREATE TABLE payments (
     id VARCHAR(36) PRIMARY KEY,
@@ -287,6 +310,7 @@ CREATE TABLE payments (
 ```
 
 ### Tabela: `invoices`
+
 ```sql
 CREATE TABLE invoices (
     id VARCHAR(36) PRIMARY KEY,
@@ -307,6 +331,7 @@ CREATE TABLE invoices (
 ```
 
 ### Tabela: `subscriptions`
+
 ```sql
 CREATE TABLE subscriptions (
     id VARCHAR(36) PRIMARY KEY,
@@ -386,18 +411,21 @@ async def change_plan(
 ## 📦 Integrações de Gateway Sugeridas
 
 ### Opção 1: Stripe (Internacional)
+
 - Mais robusto e confiável
 - Suporte a cartões internacionais
 - Webhooks bem documentados
 - SDK Python: `pip install stripe`
 
 ### Opção 2: Mercado Pago (Brasil)
+
 - PIX nativo
 - Boleto bancário
 - Taxas competitivas no Brasil
 - SDK Python: `pip install mercadopago`
 
 ### Opção 3: Asaas (Brasil)
+
 - Foco em assinaturas
 - PIX + Boleto + Cartão
 - API simples

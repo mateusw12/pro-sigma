@@ -14,6 +14,7 @@ O frontend Next.js do sistema Pro Sigma foi completamente estruturado e está pr
 ## 🚀 Servidor em Execução
 
 O servidor de desenvolvimento está rodando em:
+
 - **Local:** http://localhost:3001
 - **Network:** http://10.1.45.31:3001
 
@@ -22,15 +23,18 @@ O servidor de desenvolvimento está rodando em:
 ## 📁 Estrutura Criada
 
 ### Páginas de Autenticação ✅
+
 - `/auth/signin` - Login
 - `/auth/signup` - Cadastro com seleção de plano
 
 ### Dashboard ✅
+
 - `/dashboard` - Dashboard principal com estatísticas
 
 ### Ferramentas (17 no total) ✅
 
 #### Plano Básico (6 ferramentas)
+
 1. ✅ `/tools/variability` - Análise de Variabilidade
 2. ✅ `/tools/process-capability` - Índice de Capacidade (Cp, Cpk)
 3. ✅ `/tools/hypothesis-test` - Teste de Hipótese
@@ -39,6 +43,7 @@ O servidor de desenvolvimento está rodando em:
 6. ✅ `/tools/cov-ems` - COV EMS
 
 #### Plano Intermediário (5 ferramentas adicionais)
+
 7. ✅ `/tools/text-analysis` - Análise de Texto
 8. ✅ `/tools/normalization-test` - Teste de Normalização
 9. ✅ `/tools/control-charts` - Cartas de Controle
@@ -46,6 +51,7 @@ O servidor de desenvolvimento está rodando em:
 11. Dashboard já incluído
 
 #### Plano Pro (6 ferramentas adicionais)
+
 12. ✅ `/tools/simple-regression` - Regressão Simples
 13. ✅ `/tools/multiple-regression` - Regressão Múltipla
 14. ✅ `/tools/multivariate` - Análise Multivariada
@@ -55,6 +61,7 @@ O servidor de desenvolvimento está rodando em:
 18. ✅ `/tools/warranty-costs` - Custos de Garantia
 
 ### Suporte ✅
+
 - `/support` - Página de suporte e FAQ
 
 ## 🛠️ Tecnologias Implementadas
@@ -87,6 +94,7 @@ O servidor de desenvolvimento está rodando em:
 ### 1. Desenvolver Backend Python 🐍
 
 Criar API REST com FastAPI ou Flask para:
+
 - Autenticação de usuários
 - Processamento de análises estatísticas
 - Armazenamento de dados
@@ -96,6 +104,7 @@ Criar API REST com FastAPI ou Flask para:
 ### 2. Implementar Funcionalidades nas Ferramentas
 
 Cada ferramenta precisa:
+
 - Upload de dados (CSV, Excel)
 - Integração com API Python
 - Visualização de resultados com Chart.js
@@ -115,12 +124,14 @@ Cada ferramenta precisa:
 ### 4. Banco de Dados
 
 Configurar banco de dados para:
+
 - Usuários
 - Análises salvas
 - Histórico
 - Pagamentos
 
 Sugestões:
+
 - PostgreSQL
 - MongoDB
 - MySQL
@@ -128,12 +139,14 @@ Sugestões:
 ### 5. Deploy
 
 #### Frontend (Vercel)
+
 ```bash
 npm run build
 # Deploy automático via Vercel
 ```
 
 #### Backend Python (Railway, Render, ou AWS)
+
 ```bash
 # Após criar o backend
 pip freeze > requirements.txt
@@ -149,6 +162,7 @@ pip freeze > requirements.txt
 ## 🔒 Variáveis de Ambiente
 
 Arquivo `.env.local` configurado com:
+
 ```env
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret-key-here-change-in-production
@@ -160,6 +174,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ## 🎨 Design System
 
 ### Cores Principais
+
 - **Primary:** #1890ff (Azul Ant Design)
 - **Success:** #3f8600 (Verde)
 - **Error:** #cf1322 (Vermelho)
@@ -167,6 +182,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 - **Gradient:** linear-gradient(135deg, #667eea 0%, #764ba2 100%)
 
 ### Componentes Styled
+
 Todos os componentes usam Styled Components para estilização customizada.
 
 ## 📊 Preços dos Planos
@@ -178,6 +194,7 @@ Todos os componentes usam Styled Components para estilização customizada.
 ## ✨ Features Implementadas
 
 ### Autenticação
+
 - [x] Login com email/senha
 - [x] Registro de usuário
 - [x] Seleção de plano no cadastro
@@ -185,6 +202,7 @@ Todos os componentes usam Styled Components para estilização customizada.
 - [x] Sessão com JWT
 
 ### Layout
+
 - [x] Landing page atrativa
 - [x] Dashboard com sidebar
 - [x] Menu lateral com todas as ferramentas
@@ -192,6 +210,7 @@ Todos os componentes usam Styled Components para estilização customizada.
 - [x] Logout
 
 ### Ferramentas
+
 - [x] Estrutura de 17 ferramentas
 - [x] UI básica para cada ferramenta
 - [x] Formulários com Ant Design
@@ -210,6 +229,7 @@ Todos os componentes usam Styled Components para estilização customizada.
 ## 📞 Suporte
 
 Para dúvidas sobre a estrutura do projeto, consulte:
+
 - `STRUCTURE.md` - Organização de pastas
 - `BACKEND_INTEGRATION.md` - Como integrar com Python
 - `README.md` - Documentação geral
@@ -217,6 +237,7 @@ Para dúvidas sobre a estrutura do projeto, consulte:
 ## 🎓 Aprendizado
 
 Este projeto demonstra:
+
 - ✅ Arquitetura Next.js 16 App Router
 - ✅ Autenticação com NextAuth
 - ✅ Styled Components sem Tailwind
@@ -227,6 +248,7 @@ Este projeto demonstra:
 ## 🏆 Conclusão
 
 O frontend está **100% estruturado e pronto** para receber:
+
 1. Backend Python com análises estatísticas
 2. Implementação de funcionalidades nas ferramentas
 3. Sistema de upload de dados

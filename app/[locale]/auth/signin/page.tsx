@@ -1,10 +1,10 @@
 'use client';
 
-import { Form, Input, Button, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Form, Input, message } from 'antd';
 import { signIn } from 'next-auth/react';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useTranslations, useLocale } from 'next-intl';
 import { Container, StyledCard, Title } from './styles';
 
 const SignInPage = () => {
@@ -48,7 +48,11 @@ const SignInPage = () => {
               { type: 'email', message: t('emailInvalid') },
             ]}
           >
-            <Input prefix={<UserOutlined />} placeholder={t('email')} size="large" />
+            <Input
+              prefix={<UserOutlined />}
+              placeholder={t('email')}
+              size="large"
+            />
           </Form.Item>
 
           <Form.Item

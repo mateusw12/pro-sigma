@@ -2,10 +2,10 @@
 
 import DashboardLayout from '@/components/DashboardLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import styled from 'styled-components';
-import { Card, Upload, Button, Table, message } from 'antd';
-import { UploadOutlined, LineChartOutlined } from '@ant-design/icons';
+import { LineChartOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Card, Table, Upload, message } from 'antd';
 import { useState } from 'react';
+import styled from 'styled-components';
 
 const Title = styled.h1`
   font-size: 24px;

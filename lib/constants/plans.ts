@@ -1,4 +1,4 @@
-import { PlanType } from "@/types/plan";
+import { PlanType } from '@/types/plan';
 
 export const PLAN_FEATURES: Record<PlanType, string[]> = {
   [PlanType.BASICO]: [
@@ -35,8 +35,8 @@ export const PLAN_FEATURES: Record<PlanType, string[]> = {
 };
 
 export const PLAN_PRICES: Record<PlanType, number> = {
-  [PlanType.BASICO]: 49.90,
-  [PlanType.INTERMEDIARIO]: 99.90,
-  [PlanType.PRO]: 199.90,
+  [PlanType.BASICO]: 49.9,
+  [PlanType.INTERMEDIARIO]: 99.9,
+  [PlanType.PRO]: 199.9,
   [PlanType.ADMIN]: 0, // Admin não paga
 };

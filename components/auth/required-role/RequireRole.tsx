@@ -1,12 +1,12 @@
 'use client';
 
-import { ReactNode } from 'react';
 import { useAuth } from '@/hooks';
-import { Alert, Button } from 'antd';
-import { LockOutlined, CrownOutlined } from '@ant-design/icons';
-import { useRouter } from 'next/navigation';
 import { UserRole, getRoleName } from '@/types/roles';
-import { UpgradeContainer, UpgradeTitle, UpgradeDescription } from './styled';
+import { CrownOutlined, LockOutlined } from '@ant-design/icons';
+import { Alert, Button } from 'antd';
+import { useRouter } from 'next/navigation';
+import { ReactNode } from 'react';
+import { UpgradeContainer, UpgradeDescription, UpgradeTitle } from './styled';
 
 interface RequireRoleProps {
   /** Role mínimo necessário para ver o conteúdo */
@@ -61,7 +61,11 @@ export function RequireRole({
         icon={<LockOutlined />}
         showIcon
         action={
-          <Button type="primary" size="small" onClick={() => router.push('/plans')}>
+          <Button
+            type="primary"
+            size="small"
+            onClick={() => router.push('/plans')}
+          >
             Ver Planos
           </Button>
         }

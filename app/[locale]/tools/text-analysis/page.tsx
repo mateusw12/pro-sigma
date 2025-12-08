@@ -2,9 +2,9 @@
 
 import DashboardLayout from '@/components/DashboardLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import styled from 'styled-components';
-import { Card, Button } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
+import { Button, Card } from 'antd';
+import styled from 'styled-components';
 
 const Title = styled.h1`
   font-size: 24px;

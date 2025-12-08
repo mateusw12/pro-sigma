@@ -2,9 +2,9 @@
 
 import DashboardLayout from '@/components/DashboardLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import styled from 'styled-components';
-import { Card, Form, InputNumber, Button, Select } from 'antd';
 import { CalculatorOutlined } from '@ant-design/icons';
+import { Button, Card, Form, InputNumber, Select } from 'antd';
+import styled from 'styled-components';
 
 const Title = styled.h1`
   font-size: 24px;
@@ -39,7 +39,9 @@ const StackUpPage = () => {
             </Form.Item>
 
             <Button type="primary">Adicionar Dimensão</Button>
-            <Button type="default" style={{ marginLeft: 8 }}>Calcular StackUp</Button>
+            <Button type="default" style={{ marginLeft: 8 }}>
+              Calcular StackUp
+            </Button>
           </Form>
         </Card>
 

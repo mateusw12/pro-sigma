@@ -1,6 +1,6 @@
-import { getPlanFromRole } from "../roles/plan-role.helper";
-import { UserRole } from "../roles/user-role.enum";
-import { PLAN_NAMES, PlanType } from "./plan-type.enum";
+import { getPlanFromRole } from '../roles/plan-role.helper';
+import { UserRole } from '../roles/user-role.enum';
+import { PLAN_NAMES, PlanType } from './plan-type.enum';
 
 /**
  * Use Case: Obter nome formatado do Plan
@@ -49,7 +49,10 @@ export function isValidPlan(plan: string): plan is PlanType {
  * @returns true se o valor é PlanType
  */
 export function isPlanType(value: unknown): value is PlanType {
-  return typeof value === 'string' && Object.values(PlanType).includes(value as PlanType);
+  return (
+    typeof value === 'string' &&
+    Object.values(PlanType).includes(value as PlanType)
+  );
 }
 
 /**
@@ -63,16 +66,16 @@ export function normalizeStringToPlan(plan: string): PlanType | null {
 
   // Mapeamento de strings legadas
   const legacyMapping: Record<string, PlanType> = {
-    'basico': PlanType.BASICO,
-    'básico': PlanType.BASICO,
-    'intermediario': PlanType.INTERMEDIARIO,
-    'intermediário': PlanType.INTERMEDIARIO,
-    'pro': PlanType.PRO,
-    'professional': PlanType.PRO,
-    'profissional': PlanType.PRO,
-    'admin': PlanType.ADMIN,
-    'administrator': PlanType.ADMIN,
-    'administrador': PlanType.ADMIN,
+    basico: PlanType.BASICO,
+    básico: PlanType.BASICO,
+    intermediario: PlanType.INTERMEDIARIO,
+    intermediário: PlanType.INTERMEDIARIO,
+    pro: PlanType.PRO,
+    professional: PlanType.PRO,
+    profissional: PlanType.PRO,
+    admin: PlanType.ADMIN,
+    administrator: PlanType.ADMIN,
+    administrador: PlanType.ADMIN,
   };
 
   return legacyMapping[planLower] ?? null;

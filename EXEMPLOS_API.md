@@ -38,7 +38,7 @@ const changePlanWithCard = async () => {
       newPlan: 'pro',
       paymentMethod: 'credit_card',
       paymentData: {
-        cardNumber: '4242424242424242',  // Cartão de teste Stripe
+        cardNumber: '4242424242424242', // Cartão de teste Stripe
         cardName: 'João Silva',
         cardExpiry: '12/25',
         cardCVV: '123',
@@ -75,7 +75,7 @@ const changePlanWithPix = async () => {
     const response = await api.post('/api/payments/change-plan', {
       newPlan: 'intermediario',
       paymentMethod: 'pix',
-      paymentData: null,  // PIX não precisa de dados adicionais
+      paymentData: null, // PIX não precisa de dados adicionais
     });
 
     console.log('QR Code gerado:', response.data);
@@ -92,7 +92,9 @@ const changePlanWithPix = async () => {
 
     // Polling para verificar pagamento
     const checkPayment = setInterval(async () => {
-      const status = await api.get(`/api/payments/status/${response.data.paymentId}`);
+      const status = await api.get(
+        `/api/payments/status/${response.data.paymentId}`,
+      );
 
       if (status.data.status === 'approved') {
         clearInterval(checkPayment);
@@ -100,7 +102,6 @@ const changePlanWithPix = async () => {
         // Atualizar interface
       }
     }, 3000); // Verificar a cada 3 segundos
-
   } catch (error) {
     console.error('Erro ao gerar PIX:', error);
   }
@@ -139,7 +140,6 @@ const changePlanWithBoleto = async () => {
 
     // Exibir instruções ao usuário
     showBoletoInstructions();
-
   } catch (error) {
     console.error('Erro ao gerar boleto:', error);
   }
@@ -199,7 +199,7 @@ const listInvoices = async () => {
   try {
     const response = await api.get('/api/payments/invoices', {
       params: {
-        status: 'paid',  // Filtrar por pagas
+        status: 'paid', // Filtrar por pagas
         limit: 10,
         offset: 0,
       },

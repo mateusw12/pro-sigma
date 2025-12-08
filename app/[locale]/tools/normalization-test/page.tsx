@@ -2,9 +2,9 @@
 
 import DashboardLayout from '@/components/DashboardLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import styled from 'styled-components';
-import { Card, Form, Select, Button } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
+import { Button, Card, Form, Select } from 'antd';
+import styled from 'styled-components';
 
 const Title = styled.h1`
   font-size: 24px;
@@ -25,9 +25,15 @@ const NormalizationTestPage = () => {
             <Form.Item label="Teste de Normalidade" name="test">
               <Select>
                 <Select.Option value="shapiro-wilk">Shapiro-Wilk</Select.Option>
-                <Select.Option value="kolmogorov-smirnov">Kolmogorov-Smirnov</Select.Option>
-                <Select.Option value="anderson-darling">Anderson-Darling</Select.Option>
-                <Select.Option value="dagostino">D'Agostino-Pearson</Select.Option>
+                <Select.Option value="kolmogorov-smirnov">
+                  Kolmogorov-Smirnov
+                </Select.Option>
+                <Select.Option value="anderson-darling">
+                  Anderson-Darling
+                </Select.Option>
+                <Select.Option value="dagostino">
+                  D'Agostino-Pearson
+                </Select.Option>
               </Select>
             </Form.Item>
 

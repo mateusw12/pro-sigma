@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Spin } from 'antd';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Spin } from 'antd';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 const LoadingContainer = styled.div`
@@ -13,7 +13,11 @@ const LoadingContainer = styled.div`
   min-height: 100vh;
 `;
 
-export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
+export default function ProtectedRoute({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { data: session, status } = useSession();
   const router = useRouter();
 

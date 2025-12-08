@@ -5,6 +5,7 @@
 ### 📄 Arquivos Criados
 
 #### Frontend:
+
 1. **`/app/plans/page.tsx`** - Página de gerenciamento de planos
    - Grid com 3 cards de planos (Básico, Intermediário, Pro)
    - Indicador visual do plano atual
@@ -25,6 +26,7 @@
    - Ícone de cartão de crédito
 
 #### Backend (Exemplos):
+
 4. **`/backend-example/api_payments.py`** - API FastAPI
    - Endpoint `POST /api/payments/change-plan`
    - Endpoint `GET /api/payments/status/{paymentId}`
@@ -42,6 +44,7 @@
    - Enums para status e métodos
 
 #### Documentação:
+
 6. **`/PAYMENT_API.md`** - Documentação completa da API
    - Especificação de todos os endpoints
    - Exemplos de request/response
@@ -55,6 +58,7 @@
 ## 🎨 Funcionalidades da Página de Planos
 
 ### 1. **Visualização de Planos**
+
 - ✅ Grid responsivo com 3 cards
 - ✅ Destaque do plano atual com badge azul
 - ✅ Preços formatados em reais
@@ -62,11 +66,13 @@
 - ✅ Botões dinâmicos (Upgrade/Downgrade/Plano Atual)
 
 ### 2. **Restrições Inteligentes**
+
 - ✅ Plano atual desabilitado (não pode selecionar o mesmo)
 - ✅ Admin não pode alterar plano
 - ✅ Cards desabilitados ficam com opacidade reduzida
 
 ### 3. **Modal de Pagamento**
+
 - ✅ Resumo da mudança de plano
 - ✅ Valor total destacado
 - ✅ 3 métodos de pagamento:
@@ -75,6 +81,7 @@
   - 📄 **Boleto Bancário** (geração de PDF)
 
 ### 4. **Formulário de Cartão**
+
 - ✅ Campos: Número, Nome, Validade, CVV
 - ✅ Validações:
   - Número do cartão (16 dígitos)
@@ -84,6 +91,7 @@
 - ✅ Campo CVV com password input
 
 ### 5. **Segurança e UX**
+
 - ✅ Badge "Pagamento 100% seguro"
 - ✅ Loading state durante processamento
 - ✅ Mensagens de sucesso/erro
@@ -94,6 +102,7 @@
 ## 🔌 Integração com Backend
 
 ### Endpoint Principal
+
 ```typescript
 POST /api/payments/change-plan
 
@@ -121,6 +130,7 @@ Response:
 ### Fluxo de Pagamento
 
 #### Cartão de Crédito:
+
 ```
 1. Frontend envia dados do cartão
 2. Backend cria token no Stripe
@@ -132,6 +142,7 @@ Response:
 ```
 
 #### PIX:
+
 ```
 1. Frontend solicita pagamento PIX
 2. Backend gera QR Code
@@ -143,6 +154,7 @@ Response:
 ```
 
 #### Boleto:
+
 ```
 1. Frontend solicita boleto
 2. Backend gera boleto bancário
@@ -158,6 +170,7 @@ Response:
 ## 🗄️ Banco de Dados
 
 ### Tabela: `payments`
+
 ```sql
 id, user_id, amount, payment_method, status,
 gateway_payment_id, gateway_response,
@@ -165,6 +178,7 @@ created_at, updated_at
 ```
 
 ### Tabela: `invoices`
+
 ```sql
 id, user_id, payment_id, plan, amount, status,
 due_date, paid_at, payment_method, invoice_url,
@@ -172,6 +186,7 @@ created_at, updated_at
 ```
 
 ### Tabela: `subscriptions`
+
 ```sql
 id, user_id, plan, status, started_at,
 cancelled_at, expires_at, gateway_subscription_id,
@@ -206,6 +221,7 @@ created_at, updated_at
 ## 🎯 Próximos Passos
 
 ### Backend:
+
 - [ ] Implementar API em Python/FastAPI
 - [ ] Configurar conta no Stripe ou Mercado Pago
 - [ ] Criar tabelas no banco de dados
@@ -213,6 +229,7 @@ created_at, updated_at
 - [ ] Adicionar sistema de emails
 
 ### Frontend:
+
 - [ ] Adicionar histórico de pagamentos
 - [ ] Exibir faturas anteriores
 - [ ] Implementar download de nota fiscal
@@ -220,6 +237,7 @@ created_at, updated_at
 - [ ] Implementar retry em caso de falha
 
 ### Segurança:
+
 - [ ] Implementar rate limiting
 - [ ] Adicionar logs de auditoria
 - [ ] Criptografar dados sensíveis

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { Card } from 'antd';
+import styled from 'styled-components';
 
 export const PageContainer = styled.div`
   padding: 24px;
@@ -31,25 +31,36 @@ export const PlansGrid = styled.div`
   margin-bottom: 32px;
 `;
 
-export const PlanCard = styled(Card)<{ $isCurrentPlan?: boolean; $isDisabled?: boolean }>`
-  border: 2px solid ${props =>
-    props.$isCurrentPlan ? '#1890ff' :
-    props.$isDisabled ? '#f0f0f0' : '#d9d9d9'};
+export const PlanCard = styled(Card)<{
+  $isCurrentPlan?: boolean;
+  $isDisabled?: boolean;
+}>`
+  border: 2px solid
+    ${(props) =>
+      props.$isCurrentPlan
+        ? '#1890ff'
+        : props.$isDisabled
+          ? '#f0f0f0'
+          : '#d9d9d9'};
   border-radius: 12px;
   transition: all 0.3s;
-  opacity: ${props => props.$isDisabled ? 0.6 : 1};
-  cursor: ${props => props.$isDisabled ? 'not-allowed' : 'default'};
+  opacity: ${(props) => (props.$isDisabled ? 0.6 : 1)};
+  cursor: ${(props) => (props.$isDisabled ? 'not-allowed' : 'default')};
 
   &:hover {
-    ${props => !props.$isDisabled && !props.$isCurrentPlan && `
+    ${(props) =>
+      !props.$isDisabled &&
+      !props.$isCurrentPlan &&
+      `
       border-color: #40a9ff;
       box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
     `}
   }
 
   .ant-card-head {
-    border-bottom: 2px solid ${props => props.$isCurrentPlan ? '#1890ff' : '#f0f0f0'};
-    background: ${props => props.$isCurrentPlan ? '#e6f7ff' : 'white'};
+    border-bottom: 2px solid
+      ${(props) => (props.$isCurrentPlan ? '#1890ff' : '#f0f0f0')};
+    background: ${(props) => (props.$isCurrentPlan ? '#e6f7ff' : 'white')};
   }
 `;
 
@@ -125,13 +136,13 @@ export const SectionTitle = styled.h4`
 `;
 
 export const PaymentMethodCard = styled.div<{ $selected?: boolean }>`
-  border: 2px solid ${props => props.$selected ? '#1890ff' : '#d9d9d9'};
+  border: 2px solid ${(props) => (props.$selected ? '#1890ff' : '#d9d9d9')};
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 12px;
   cursor: pointer;
   transition: all 0.3s;
-  background: ${props => props.$selected ? '#e6f7ff' : 'white'};
+  background: ${(props) => (props.$selected ? '#e6f7ff' : 'white')};
 
   &:hover {
     border-color: #40a9ff;

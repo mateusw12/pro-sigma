@@ -3,6 +3,7 @@
 ## 📦 Enums Criados
 
 ### PlanType
+
 ```typescript
 enum PlanType {
   BASICO = 'basico',
@@ -13,6 +14,7 @@ enum PlanType {
 ```
 
 ### UserRole
+
 ```typescript
 enum UserRole {
   GUEST = 0,
@@ -131,15 +133,15 @@ export const mockUsers = [
   {
     id: '1',
     email: 'admin@prosigma.com',
-    plan: PlanType.ADMIN,      // ✅ Usando enum
-    role: UserRole.ADMIN,       // ✅ Role explícito
+    plan: PlanType.ADMIN, // ✅ Usando enum
+    role: UserRole.ADMIN, // ✅ Role explícito
     isAdmin: true,
   },
   {
     id: '2',
     email: 'pro@prosigma.com',
-    plan: PlanType.PRO,         // ✅ Usando enum
-    role: UserRole.PRO,         // ✅ Role explícito
+    plan: PlanType.PRO, // ✅ Usando enum
+    role: UserRole.PRO, // ✅ Role explícito
     isAdmin: false,
   },
 ];
@@ -168,6 +170,7 @@ export const PLAN_PRICES: Record<PlanType, number> = {
 ## 🎯 Vantagens dos Enums
 
 ### Type Safety
+
 ```typescript
 // ✅ TypeScript vai autocomplete e validar
 function setPlan(plan: PlanType) {
@@ -182,15 +185,17 @@ setPlan(PlanType.PRO);
 ```
 
 ### Refatoração Segura
+
 ```typescript
 // Se mudar o valor do enum, todas as referências são atualizadas
 enum PlanType {
-  PRO = 'premium' // mudou de 'pro' para 'premium'
+  PRO = 'premium', // mudou de 'pro' para 'premium'
 }
 // Todas as comparações com PlanType.PRO continuam funcionando!
 ```
 
 ### Autocomplete no IDE
+
 ```typescript
 import { PlanType } from '@/types';
 
@@ -202,14 +207,17 @@ import { PlanType } from '@/types';
 ```
 
 ### Evita Typos
+
 ```typescript
 // ❌ String literal - possível erro
-if (plan === 'intermedirio') { // typo!
+if (plan === 'intermedirio') {
+  // typo!
   // Código nunca executa
 }
 
 // ✅ Enum - erro de compilação
-if (plan === PlanType.INTERMEDIRIO) { // Error: Property 'INTERMEDIRIO' does not exist
+if (plan === PlanType.INTERMEDIRIO) {
+  // Error: Property 'INTERMEDIRIO' does not exist
   // Não compila
 }
 ```
@@ -258,13 +266,13 @@ const role = getRoleFromPlan(planEnum); // UserRole.PRO
 
 ## 🎓 Resumo das Mudanças
 
-| Antes | Depois |
-|-------|--------|
-| `plan: 'pro'` | `plan: PlanType.PRO` |
-| `plans = ['basico', 'intermediario', 'pro']` | `plans = AVAILABLE_PLANS` |
-| `if (plan === 'basico')` | `if (plan === PlanType.BASICO)` |
-| Role calculado em runtime | Role explícito: `role: UserRole.PRO` |
-| Type: `string` | Type: `PlanType` (enum) |
+| Antes                                        | Depois                               |
+| -------------------------------------------- | ------------------------------------ |
+| `plan: 'pro'`                                | `plan: PlanType.PRO`                 |
+| `plans = ['basico', 'intermediario', 'pro']` | `plans = AVAILABLE_PLANS`            |
+| `if (plan === 'basico')`                     | `if (plan === PlanType.BASICO)`      |
+| Role calculado em runtime                    | Role explícito: `role: UserRole.PRO` |
+| Type: `string`                               | Type: `PlanType` (enum)              |
 
 ## ✅ Checklist de Migração
 

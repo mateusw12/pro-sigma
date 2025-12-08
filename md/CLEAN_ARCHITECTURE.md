@@ -33,29 +33,33 @@ O arquivo `types/roles.ts` foi refatorado seguindo os princípios de **Clean Arc
 Contém as entidades fundamentais do sistema e as regras de negócio puras.
 
 #### Entidades (Entities)
+
 ```typescript
 enum PlanType { ... }     // Tipos de planos
 enum UserRole { ... }     // Níveis de permissão
 ```
 
 #### Value Objects
+
 ```typescript
-ROLE_NAMES               // Nomes legíveis (imutável)
-PLAN_NAMES               // Nomes de planos (imutável)
-PLAN_ROLE_MAPPING        // Mapeamento plan→role (imutável)
-ROLE_PLAN_MAPPING        // Mapeamento role→plan (imutável)
-AVAILABLE_PLANS          // Planos disponíveis (imutável)
+ROLE_NAMES; // Nomes legíveis (imutável)
+PLAN_NAMES; // Nomes de planos (imutável)
+PLAN_ROLE_MAPPING; // Mapeamento plan→role (imutável)
+ROLE_PLAN_MAPPING; // Mapeamento role→plan (imutável)
+AVAILABLE_PLANS; // Planos disponíveis (imutável)
 ```
 
 #### Regras de Negócio (Business Rules)
+
 ```typescript
-hasPermission()          // Hierarquia de permissões
-isAdmin()                // Verificação de admin
-isGuest()                // Verificação de guest
-compareRoles()           // Comparação de roles
+hasPermission(); // Hierarquia de permissões
+isAdmin(); // Verificação de admin
+isGuest(); // Verificação de guest
+compareRoles(); // Comparação de roles
 ```
 
 **Princípios aplicados:**
+
 - ✅ **Independente de frameworks**
 - ✅ **Testável** (lógica pura, sem dependências)
 - ✅ **Imutabilidade** (Value Objects são `readonly`)
@@ -68,17 +72,19 @@ compareRoles()           // Comparação de roles
 Orquestra a lógica de negócio para casos de uso específicos.
 
 #### Use Cases Implementados
+
 ```typescript
-getRoleFromPlan()        // Converter plano → role
-getPlanFromRole()        // Converter role → plano
-getRoleName()            // Obter nome formatado do role
-getPlanName()            // Obter nome formatado do plano
-getNextUpgrade()         // Calcular próximo upgrade
-canUpgradeTo()           // Validar upgrade
-canDowngradeTo()         // Validar downgrade
+getRoleFromPlan(); // Converter plano → role
+getPlanFromRole(); // Converter role → plano
+getRoleName(); // Obter nome formatado do role
+getPlanName(); // Obter nome formatado do plano
+getNextUpgrade(); // Calcular próximo upgrade
+canUpgradeTo(); // Validar upgrade
+canDowngradeTo(); // Validar downgrade
 ```
 
 **Princípios aplicados:**
+
 - ✅ **Use Case Driven** (cada função representa um caso de uso)
 - ✅ **Dependency Inversion** (depende de abstrações, não implementações)
 - ✅ **Interface Segregation** (funções pequenas e específicas)
@@ -90,18 +96,21 @@ canDowngradeTo()         // Validar downgrade
 Funções de infraestrutura, validação e conversão.
 
 #### Validadores (Public)
+
 ```typescript
-isValidPlan()            // Valida se string é PlanType
-isValidRole()            // Valida se número é UserRole
+isValidPlan(); // Valida se string é PlanType
+isValidRole(); // Valida se número é UserRole
 ```
 
 #### Helpers (Private)
+
 ```typescript
-isPlanType()             // Type guard para PlanType
-normalizeStringToPlan()  // Normaliza strings legadas
+isPlanType(); // Type guard para PlanType
+normalizeStringToPlan(); // Normaliza strings legadas
 ```
 
 **Princípios aplicados:**
+
 - ✅ **Encapsulamento** (helpers privados)
 - ✅ **Type Safety** (type guards)
 - ✅ **Backward Compatibility** (suporta strings legadas)
@@ -111,6 +120,7 @@ normalizeStringToPlan()  // Normaliza strings legadas
 ## 🎯 Benefícios da Arquitetura
 
 ### 1. **Separação de Responsabilidades**
+
 ```typescript
 // ❌ ANTES - tudo misturado
 export function getRoleFromPlan(plan: string) {
@@ -130,6 +140,7 @@ export function getRoleFromPlan(plan) {
 ```
 
 ### 2. **Testabilidade**
+
 ```typescript
 // Fácil de testar - funções puras sem side effects
 describe('Business Rules', () => {
@@ -140,15 +151,22 @@ describe('Business Rules', () => {
 ```
 
 ### 3. **Extensibilidade**
+
 ```typescript
 // Adicionar novo use case é simples
-export function canSwitchTo(currentRole: UserRole, targetPlan: PlanType): boolean {
-  return canUpgradeTo(currentRole, targetPlan) ||
-         canDowngradeTo(currentRole, targetPlan);
+export function canSwitchTo(
+  currentRole: UserRole,
+  targetPlan: PlanType,
+): boolean {
+  return (
+    canUpgradeTo(currentRole, targetPlan) ||
+    canDowngradeTo(currentRole, targetPlan)
+  );
 }
 ```
 
 ### 4. **Manutenibilidade**
+
 ```typescript
 // Value Objects centralizados e imutáveis
 const ROLE_NAMES = { ... } as const; // Não pode ser modificado acidentalmente
@@ -159,6 +177,7 @@ const ROLE_NAMES = { ... } as const; // Não pode ser modificado acidentalmente
 ## 📚 Novos Use Cases Disponíveis
 
 ### `getNextUpgrade()` - Sugerir próximo plano
+
 ```typescript
 import { getNextUpgrade } from '@/types';
 
@@ -171,6 +190,7 @@ if (nextPlan) {
 ```
 
 ### `canUpgradeTo()` - Validar upgrade
+
 ```typescript
 import { canUpgradeTo, PlanType } from '@/types';
 
@@ -182,6 +202,7 @@ if (canUpgradeTo(role, PlanType.PRO)) {
 ```
 
 ### `canDowngradeTo()` - Validar downgrade
+
 ```typescript
 import { canDowngradeTo, PlanType } from '@/types';
 
@@ -193,6 +214,7 @@ if (canDowngradeTo(role, PlanType.BASICO)) {
 ```
 
 ### `getPlanFromRole()` - Obter plano do role
+
 ```typescript
 import { getPlanFromRole, UserRole } from '@/types';
 
@@ -200,6 +222,7 @@ const plan = getPlanFromRole(UserRole.PRO); // PlanType.PRO
 ```
 
 ### `isGuest()` - Verificar se é visitante
+
 ```typescript
 import { isGuest } from '@/types';
 
@@ -209,6 +232,7 @@ if (isGuest(role)) {
 ```
 
 ### `compareRoles()` - Comparar roles
+
 ```typescript
 import { compareRoles, UserRole } from '@/types';
 
@@ -217,6 +241,7 @@ const result = compareRoles(UserRole.PRO, UserRole.BASICO);
 ```
 
 ### `isValidRole()` - Validar role
+
 ```typescript
 import { isValidRole } from '@/types';
 
@@ -239,6 +264,7 @@ const role = PLAN_TO_ROLE['pro']; // Funciona, mas deprecated
 ```
 
 **Migração recomendada:**
+
 ```typescript
 // ✅ Recomendado - usa use case
 import { getRoleFromPlan, PlanType } from '@/types';
@@ -322,13 +348,13 @@ describe('Application - Use Cases', () => {
 
 ## 🎓 Princípios SOLID Aplicados
 
-| Princípio | Como foi aplicado |
-|-----------|-------------------|
-| **S**RP | Cada função tem uma única responsabilidade |
-| **O**CP | Aberto para extensão (novos use cases), fechado para modificação |
-| **L**SP | Enums garantem substituibilidade |
-| **I**SP | Interfaces segregadas (funções pequenas e específicas) |
-| **D**IP | Dependências de abstrações (enums) ao invés de implementações |
+| Princípio | Como foi aplicado                                                |
+| --------- | ---------------------------------------------------------------- |
+| **S**RP   | Cada função tem uma única responsabilidade                       |
+| **O**CP   | Aberto para extensão (novos use cases), fechado para modificação |
+| **L**SP   | Enums garantem substituibilidade                                 |
+| **I**SP   | Interfaces segregadas (funções pequenas e específicas)           |
+| **D**IP   | Dependências de abstrações (enums) ao invés de implementações    |
 
 ---
 

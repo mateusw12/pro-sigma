@@ -1,8 +1,8 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import type { Session } from '@/types/auth/auth';
 import { getRoleFromPlan, isAdmin, UserRole } from '@/types/roles';
+import { useSession } from 'next-auth/react';
 
 /**
  * Verifica se um role tem permissão suficiente

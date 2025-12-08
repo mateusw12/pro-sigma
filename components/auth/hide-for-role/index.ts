@@ -1,1 +1,1 @@
-export * from './HideForRole'
+export * from './HideForRole';

@@ -1,5 +1,5 @@
-import { useAuth } from "@/hooks";
-import { ReactNode } from "react";
+import { useAuth } from '@/hooks';
+import { ReactNode } from 'react';
 
 interface AdminOnlyProps {
   /** Conteúdo a ser mostrado apenas para admin */

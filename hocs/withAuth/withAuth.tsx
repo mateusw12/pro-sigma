@@ -1,12 +1,17 @@
 'use client';
 
-import { ComponentType, useEffect } from 'react';
+import {
+  UserRole,
+  getRoleFromPlan,
+  getRoleName,
+  hasPermission,
+} from '@/types/roles';
+import { LockOutlined } from '@ant-design/icons';
+import { Button, Result, Spin } from 'antd';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Spin, Result, Button } from 'antd';
-import { LockOutlined } from '@ant-design/icons';
-import { UserRole, getRoleFromPlan, getRoleName, hasPermission } from '@/types/roles';
-import { LoadingContainer, AccessDeniedContainer } from './styled';
+import { ComponentType, useEffect } from 'react';
+import { AccessDeniedContainer, LoadingContainer } from './styled';
 
 export interface WithAuthOptions {
   /**
@@ -61,7 +66,7 @@ export interface WithAuthOptions {
  */
 export function withAuth<P extends object>(
   Component: ComponentType<P>,
-  options: WithAuthOptions = {}
+  options: WithAuthOptions = {},
 ) {
   const {
     requiredRole = UserRole.BASICO,
@@ -121,7 +126,9 @@ export function withAuth<P extends object>(
         <AccessDeniedContainer>
           <Result
             status="403"
-            icon={<LockOutlined style={{ fontSize: '72px', color: '#1890ff' }} />}
+            icon={
+              <LockOutlined style={{ fontSize: '72px', color: '#1890ff' }} />
+            }
             title="Autenticação Necessária"
             subTitle="Você precisa estar autenticado para acessar esta página."
             extra={
@@ -148,7 +155,9 @@ export function withAuth<P extends object>(
         <AccessDeniedContainer>
           <Result
             status="403"
-            icon={<LockOutlined style={{ fontSize: '72px', color: '#ff4d4f' }} />}
+            icon={
+              <LockOutlined style={{ fontSize: '72px', color: '#ff4d4f' }} />
+            }
             title="Acesso Restrito"
             subTitle={
               adminOnly
@@ -188,7 +197,7 @@ export function withAdminAuth<P extends object>(Component: ComponentType<P>) {
  */
 export function withOptionalAuth<P extends object>(
   Component: ComponentType<P>,
-  options: Omit<WithAuthOptions, 'redirectToSignin'> = {}
+  options: Omit<WithAuthOptions, 'redirectToSignin'> = {},
 ) {
   return withAuth(Component, { ...options, redirectToSignin: false });
 }

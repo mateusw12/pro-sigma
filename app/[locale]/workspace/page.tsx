@@ -47,23 +47,125 @@ const WorkspacePage = () => {
   const isAdmin = session?.user?.isAdmin;
 
   const tools = [
-    { key: 'variability', name: tTools('variability'), icon: '📊', plan: 'basico', description: tTools('variabilityDesc') },
-    { key: 'process-capability', name: tTools('processCapability'), icon: '🎯', plan: 'basico', description: tTools('processCapabilityDesc') },
-    { key: 'hypothesis-test', name: tTools('hypothesisTest'), icon: '🔬', plan: 'basico', description: tTools('hypothesisTestDesc') },
-    { key: 'distribution-test', name: tTools('distributionTest'), icon: '📈', plan: 'basico', description: tTools('distributionTestDesc') },
-    { key: 'descriptive-stats', name: tTools('descriptiveStats'), icon: '📋', plan: 'basico', description: tTools('descriptiveStatsDesc') },
-    { key: 'cov-ems', name: tTools('covEms'), icon: '⚡', plan: 'basico', description: tTools('covEmsDesc') },
-    { key: 'control-charts', name: tTools('controlCharts'), icon: '📉', plan: 'intermediario', description: tTools('controlChartsDesc') },
-    { key: 'normalization-test', name: tTools('normalizationTest'), icon: '🔔', plan: 'intermediario', description: tTools('normalizationTestDesc') },
-    { key: 'text-analysis', name: tTools('textAnalysis'), icon: '📝', plan: 'intermediario', description: tTools('textAnalysisDesc') },
-    { key: 'monte-carlo', name: tTools('monteCarlo'), icon: '🎲', plan: 'intermediario', description: tTools('monteCarloDesc') },
-    { key: 'simple-regression', name: tTools('simpleRegression'), icon: '📐', plan: 'pro', description: tTools('simpleRegressionDesc') },
-    { key: 'multiple-regression', name: tTools('multipleRegression'), icon: '📊', plan: 'pro', description: tTools('multipleRegressionDesc') },
-    { key: 'multivariate', name: tTools('multivariate'), icon: '🔀', plan: 'pro', description: tTools('multivariateDesc') },
-    { key: 'doe', name: tTools('doe'), icon: '🧪', plan: 'pro', description: tTools('doeDesc') },
-    { key: 'stackup', name: tTools('stackup'), icon: '📏', plan: 'pro', description: tTools('stackupDesc') },
-    { key: 'space-filling', name: tTools('spaceFilling'), icon: '🎯', plan: 'pro', description: tTools('spaceFillingDesc') },
-    { key: 'warranty-costs', name: tTools('warrantyCosts'), icon: '💰', plan: 'pro', description: tTools('warrantyCostsDesc') },
+    {
+      key: 'variability',
+      name: tTools('variability'),
+      icon: '📊',
+      plan: 'basico',
+      description: tTools('variabilityDesc'),
+    },
+    {
+      key: 'process-capability',
+      name: tTools('processCapability'),
+      icon: '🎯',
+      plan: 'basico',
+      description: tTools('processCapabilityDesc'),
+    },
+    {
+      key: 'hypothesis-test',
+      name: tTools('hypothesisTest'),
+      icon: '🔬',
+      plan: 'basico',
+      description: tTools('hypothesisTestDesc'),
+    },
+    {
+      key: 'distribution-test',
+      name: tTools('distributionTest'),
+      icon: '📈',
+      plan: 'basico',
+      description: tTools('distributionTestDesc'),
+    },
+    {
+      key: 'descriptive-stats',
+      name: tTools('descriptiveStats'),
+      icon: '📋',
+      plan: 'basico',
+      description: tTools('descriptiveStatsDesc'),
+    },
+    {
+      key: 'cov-ems',
+      name: tTools('covEms'),
+      icon: '⚡',
+      plan: 'basico',
+      description: tTools('covEmsDesc'),
+    },
+    {
+      key: 'control-charts',
+      name: tTools('controlCharts'),
+      icon: '📉',
+      plan: 'intermediario',
+      description: tTools('controlChartsDesc'),
+    },
+    {
+      key: 'normalization-test',
+      name: tTools('normalizationTest'),
+      icon: '🔔',
+      plan: 'intermediario',
+      description: tTools('normalizationTestDesc'),
+    },
+    {
+      key: 'text-analysis',
+      name: tTools('textAnalysis'),
+      icon: '📝',
+      plan: 'intermediario',
+      description: tTools('textAnalysisDesc'),
+    },
+    {
+      key: 'monte-carlo',
+      name: tTools('monteCarlo'),
+      icon: '🎲',
+      plan: 'intermediario',
+      description: tTools('monteCarloDesc'),
+    },
+    {
+      key: 'simple-regression',
+      name: tTools('simpleRegression'),
+      icon: '📐',
+      plan: 'pro',
+      description: tTools('simpleRegressionDesc'),
+    },
+    {
+      key: 'multiple-regression',
+      name: tTools('multipleRegression'),
+      icon: '📊',
+      plan: 'pro',
+      description: tTools('multipleRegressionDesc'),
+    },
+    {
+      key: 'multivariate',
+      name: tTools('multivariate'),
+      icon: '🔀',
+      plan: 'pro',
+      description: tTools('multivariateDesc'),
+    },
+    {
+      key: 'doe',
+      name: tTools('doe'),
+      icon: '🧪',
+      plan: 'pro',
+      description: tTools('doeDesc'),
+    },
+    {
+      key: 'stackup',
+      name: tTools('stackup'),
+      icon: '📏',
+      plan: 'pro',
+      description: tTools('stackupDesc'),
+    },
+    {
+      key: 'space-filling',
+      name: tTools('spaceFilling'),
+      icon: '🎯',
+      plan: 'pro',
+      description: tTools('spaceFillingDesc'),
+    },
+    {
+      key: 'warranty-costs',
+      name: tTools('warrantyCosts'),
+      icon: '💰',
+      plan: 'pro',
+      description: tTools('warrantyCostsDesc'),
+    },
   ];
 
   // Filtrar ferramentas baseado no plano do usuário
@@ -78,7 +180,7 @@ const WorkspacePage = () => {
     };
 
     const allowedPlans = planHierarchy[userPlan] || ['basico'];
-    return tools.filter(tool => allowedPlans.includes(tool.plan));
+    return tools.filter((tool) => allowedPlans.includes(tool.plan));
   };
 
   const isToolLocked = (toolPlan: string) => {
@@ -171,19 +273,27 @@ const WorkspacePage = () => {
 
   const getPlanColor = (plan: string) => {
     switch (plan) {
-      case 'basico': return 'green';
-      case 'intermediario': return 'blue';
-      case 'pro': return 'gold';
-      default: return 'default';
+      case 'basico':
+        return 'green';
+      case 'intermediario':
+        return 'blue';
+      case 'pro':
+        return 'gold';
+      default:
+        return 'default';
     }
   };
 
   const getPlanLabel = (plan: string) => {
     switch (plan) {
-      case 'basico': return 'Básico';
-      case 'intermediario': return 'Intermediário';
-      case 'pro': return 'Pro';
-      default: return '';
+      case 'basico':
+        return 'Básico';
+      case 'intermediario':
+        return 'Intermediário';
+      case 'pro':
+        return 'Pro';
+      default:
+        return '';
     }
   };
 
@@ -194,9 +304,7 @@ const WorkspacePage = () => {
           <Title>
             <FundOutlined /> {t('title')}
           </Title>
-          <Subtitle>
-            {t('subtitle')}
-          </Subtitle>
+          <Subtitle>{t('subtitle')}</Subtitle>
 
           <UploadSection>
             <Upload.Dragger
@@ -209,12 +317,8 @@ const WorkspacePage = () => {
               <p className="ant-upload-drag-icon">
                 <FileExcelOutlined style={{ fontSize: 48, color: '#1890ff' }} />
               </p>
-              <p className="ant-upload-text">
-                {t('uploadArea')}
-              </p>
-              <p className="ant-upload-hint">
-                {t('uploadHint')}
-              </p>
+              <p className="ant-upload-text">{t('uploadArea')}</p>
+              <p className="ant-upload-hint">{t('uploadHint')}</p>
             </Upload.Dragger>
 
             {uploadedFile && (
@@ -222,8 +326,12 @@ const WorkspacePage = () => {
                 <div>
                   <strong>{uploadedFile.name}</strong>
                   <div style={{ marginTop: 8 }}>
-                    <Tag color="blue">{uploadedFile.columns.length} {t('columns')}</Tag>
-                    <Tag color="green">{uploadedFile.preview.length} {t('rows')}</Tag>
+                    <Tag color="blue">
+                      {uploadedFile.columns.length} {t('columns')}
+                    </Tag>
+                    <Tag color="green">
+                      {uploadedFile.preview.length} {t('rows')}
+                    </Tag>
                   </div>
                 </div>
                 <Button
@@ -241,7 +349,7 @@ const WorkspacePage = () => {
             <DataPreview title={t('dataPreview')}>
               <Table
                 dataSource={uploadedFile.preview}
-                columns={uploadedFile.columns.map(col => ({
+                columns={uploadedFile.columns.map((col) => ({
                   title: col,
                   dataIndex: col,
                   key: col,
@@ -255,12 +363,13 @@ const WorkspacePage = () => {
           <h2 style={{ marginTop: 24, marginBottom: 16, fontSize: 20 }}>
             {t('analysisTools')}
             <Tag color="blue" style={{ marginLeft: 8 }}>
-              {availableTools.length} {t('available')} {userPlan.charAt(0).toUpperCase() + userPlan.slice(1)}
+              {availableTools.length} {t('available')}{' '}
+              {userPlan.charAt(0).toUpperCase() + userPlan.slice(1)}
             </Tag>
           </h2>
 
           <ToolsGrid>
-            {availableTools.map(tool => (
+            {availableTools.map((tool) => (
               <ToolCard
                 key={tool.key}
                 title={
@@ -268,7 +377,11 @@ const WorkspacePage = () => {
                     {tool.icon} {tool.name}
                   </span>
                 }
-                extra={<Tag color={getPlanColor(tool.plan)}>{getPlanLabel(tool.plan)}</Tag>}
+                extra={
+                  <Tag color={getPlanColor(tool.plan)}>
+                    {getPlanLabel(tool.plan)}
+                  </Tag>
+                }
                 onClick={() => handleToolClick(tool.key)}
               >
                 <p style={{ color: '#666', margin: 0 }}>{tool.description}</p>
@@ -277,7 +390,7 @@ const WorkspacePage = () => {
           </ToolsGrid>
 
           <Modal
-            title={`${t('analysis')}: ${availableTools.find(t => t.key === selectedTool)?.name}`}
+            title={`${t('analysis')}: ${availableTools.find((t) => t.key === selectedTool)?.name}`}
             open={isModalVisible}
             onCancel={() => setIsModalVisible(false)}
             onOk={handleAnalyze}
@@ -298,14 +411,21 @@ const WorkspacePage = () => {
                 placeholder={t('selectOneOrMore')}
                 value={selectedColumns}
                 onChange={setSelectedColumns}
-                options={uploadedFile?.columns.map(col => ({
+                options={uploadedFile?.columns.map((col) => ({
                   label: col,
                   value: col,
                 }))}
               />
             </div>
 
-            <div style={{ marginTop: 16, padding: 12, background: '#f0f2f5', borderRadius: 4 }}>
+            <div
+              style={{
+                marginTop: 16,
+                padding: 12,
+                background: '#f0f2f5',
+                borderRadius: 4,
+              }}
+            >
               <small>
                 <strong>{t('tip')}:</strong> {t('tipMessage')}
               </small>

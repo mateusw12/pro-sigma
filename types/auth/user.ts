@@ -1,5 +1,5 @@
-import { DefaultUser } from "next-auth";
-import { PlanType } from "../plan/plan-type.enum";
+import { DefaultUser } from 'next-auth';
+import { PlanType } from '../plan/plan-type.enum';
 
 export interface User extends DefaultUser {
   id: string;

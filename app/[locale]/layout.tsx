@@ -1,25 +1,25 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import StyledComponentsRegistry from "@/lib/registry";
-import { AntdRegistry } from '@ant-design/nextjs-registry';
-import "../globals.css";
+import StyledComponentsRegistry from '@/lib/registry';
 import { Providers } from '@/types/auth/provider';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import '../globals.css';
 
 const locales = ['pt', 'en'];
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({locale}));
+  return locales.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  params: Promise<{ locale: string }>;
 }) {
-  const {locale} = await params;
+  const { locale } = await params;
 
   // Validate that the incoming `locale` parameter is valid
   if (!locales.includes(locale as any)) notFound();
@@ -34,9 +34,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <AntdRegistry>
-              <StyledComponentsRegistry>
-                {children}
-              </StyledComponentsRegistry>
+              <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
             </AntdRegistry>
           </Providers>
         </NextIntlClientProvider>
@@ -45,12 +43,20 @@ export default async function LocaleLayout({
   );
 }
 
-export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
-  const {locale} = await params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   return {
-    title: locale === 'pt' ? "Pro Sigma - Sistema de Análise Six Sigma" : "Pro Sigma - Six Sigma Analysis System",
-    description: locale === 'pt'
-      ? "Plataforma completa para análise de dados Six Sigma"
-      : "Complete platform for Six Sigma data analysis",
+    title:
+      locale === 'pt'
+        ? 'Pro Sigma - Sistema de Análise Six Sigma'
+        : 'Pro Sigma - Six Sigma Analysis System',
+    description:
+      locale === 'pt'
+        ? 'Plataforma completa para análise de dados Six Sigma'
+        : 'Complete platform for Six Sigma data analysis',
   };
 }

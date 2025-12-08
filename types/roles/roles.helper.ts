@@ -1,4 +1,4 @@
-import { UserRole } from "./user-role.enum";
+import { UserRole } from './user-role.enum';
 
 /**
  * Business Rule: Verificação de Admin
@@ -34,7 +34,6 @@ export function compareRoles(roleA: UserRole, roleB: UserRole): number {
   return roleA - roleB;
 }
 
-
 /**
  * Business Rule: Hierarquia de Permissões
  * Verifica se um role tem permissão suficiente baseado na hierarquia
@@ -47,7 +46,10 @@ export function compareRoles(roleA: UserRole, roleB: UserRole): number {
  * hasPermission(UserRole.PRO, UserRole.BASICO) // true - PRO tem acesso a BASICO
  * hasPermission(UserRole.BASICO, UserRole.PRO) // false - BASICO não tem acesso a PRO
  */
-export function hasPermission(userRole: UserRole, requiredRole: UserRole): boolean {
+export function hasPermission(
+  userRole: UserRole,
+  requiredRole: UserRole,
+): boolean {
   return userRole >= requiredRole;
 }
 

@@ -3,6 +3,7 @@
 ## Usuários Mockados para Desenvolvimento
 
 ### 👨‍💼 Administrador
+
 - **Email:** `admin@prosigma.com`
 - **Senha:** `admin123`
 - **Plano:** Admin (acesso total)
@@ -11,6 +12,7 @@
 ---
 
 ### 💎 Usuário Pro
+
 - **Email:** `teste@prosigma.com`
 - **Senha:** `teste123`
 - **Plano:** Pro (R$ 199,90/mês)
@@ -19,6 +21,7 @@
 ---
 
 ### 🥈 Usuário Intermediário
+
 - **Email:** `intermediario@prosigma.com`
 - **Senha:** `inter123`
 - **Plano:** Intermediário (R$ 99,90/mês)
@@ -27,6 +30,7 @@
 ---
 
 ### 🥉 Usuário Básico
+
 - **Email:** `basico@prosigma.com`
 - **Senha:** `basico123`
 - **Plano:** Básico (R$ 49,90/mês)
@@ -37,6 +41,7 @@
 ## 🚀 Como Usar
 
 1. Inicie o servidor de desenvolvimento:
+
    ```bash
    npm run dev
    ```
@@ -63,11 +68,13 @@
 ## 🛠️ Implementação Técnica
 
 ### Arquivo de Usuários Mockados
+
 - **Localização:** `/lib/data/mockUsers.ts`
 - **Função:** `findUserByCredentials(email, password)`
 - **Retorno:** Objeto `User` sem a senha
 
 ### Fluxo de Autenticação
+
 1. NextAuth recebe credenciais do formulário
 2. Tenta autenticar com `findUserByCredentials()` (mock)
 3. Se não encontrar, tenta API real (quando disponível)
@@ -75,6 +82,7 @@
 5. Dados armazenados no JWT e na sessão
 
 ### Tipos TypeScript
+
 - **User:** Interface em `/types/auth.ts`
 - **Session:** Módulo augmentation em `/types/next-auth.d.ts`
 - **PlanType:** `"basico" | "intermediario" | "pro" | "admin"`

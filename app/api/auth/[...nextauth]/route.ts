@@ -1,8 +1,8 @@
+import api from '@/lib/api/axios';
+import { findUserByCredentials } from '@/lib/data/mockUsers';
+import type { User } from '@/types/auth/auth';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import api from '@/lib/api/axios';
-import type { User } from '@/types/auth/auth';
-import { findUserByCredentials } from '@/lib/data/mockUsers';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -18,7 +18,10 @@ export const authOptions: NextAuthOptions = {
         }
 
         // Primeiro tenta autenticar com usuários mockados (desenvolvimento)
-        const mockUser = findUserByCredentials(credentials.email, credentials.password);
+        const mockUser = findUserByCredentials(
+          credentials.email,
+          credentials.password,
+        );
         if (mockUser) {
           console.log('✅ Login com usuário mockado:', mockUser.email);
           return mockUser;
