@@ -6,9 +6,6 @@ import { Layout, Menu } from 'antd';
 import {
   DashboardOutlined,
   BarChartOutlined,
-  LineChartOutlined,
-  ExperimentOutlined,
-  SettingOutlined,
   QuestionCircleOutlined,
   LogoutOutlined,
   CreditCardOutlined,
@@ -16,7 +13,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations, useLocale } from 'next-intl';
-import LanguageSwitcher from './LanguageSwitcher';
+import { LanguageSwitcher } from '../common';
 
 const { Header, Sider, Content } = Layout;
 
