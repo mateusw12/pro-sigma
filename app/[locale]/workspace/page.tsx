@@ -1,10 +1,10 @@
 'use client';
 
-import { TextAnalysisResult } from '@/components/analysis/text-analysis';
+import { SpaceFillingResult } from '@/components/analysis/space-filling';
 import { ProtectedRoute } from '@/components/auth';
 import { DashboardLayout } from '@/components/layout';
+import { MOCK_SPACE_FILLING } from '@/lib/backend-mock/space-filling';
 import { MOCK_STATISTIC_DESCRIPTIVE } from '@/lib/backend-mock/statistic-descriptive';
-import { MOCK_TEXT_ANALYSIS } from '@/lib/backend-mock/text-analysis';
 import { PlanType } from '@/types/plan';
 import {
   DeleteOutlined,
@@ -302,9 +302,9 @@ const WorkspacePage = () => {
           {/* Exemplo: Análise de Texto */}
           <div style={{ marginTop: 32 }}>
             <h2 style={{ marginBottom: 16, fontSize: 20 }}>
-              Exemplo: Análise de Texto e Frequência
+              Exemplo: Space-Filling Design
             </h2>
-            <TextAnalysisResult data={MOCK_TEXT_ANALYSIS} />
+            <SpaceFillingResult data={MOCK_SPACE_FILLING} />
           </div>
 
           <Modal
