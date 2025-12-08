@@ -1,6 +1,6 @@
 import "next-auth";
 import "next-auth/jwt";
-import { PlanType } from "./auth";
+import { PlanType } from "./auth/auth";
 
 declare module "next-auth" {
   interface Session {

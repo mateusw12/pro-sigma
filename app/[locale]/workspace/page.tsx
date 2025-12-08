@@ -15,7 +15,7 @@ import {
 } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
 import api from '@/lib/api/axios';
-import type { PlanType } from '@/types/auth';
+import type { PlanType } from '@/types/auth/auth';
 import {
   PageContainer,
   Title,

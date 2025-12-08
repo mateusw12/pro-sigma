@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode } from 'react';
-import styled from 'styled-components';
 import { Layout, Menu } from 'antd';
 import {
   DashboardOutlined,
@@ -13,43 +12,10 @@ import {
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations, useLocale } from 'next-intl';
-import { LanguageSwitcher } from '../common';
+import { LanguageSwitcher } from '../common/language-switcher';
+import { StyledLayout, StyledHeader, Logo, UserInfo, StyledContent } from './styled';
 
-const { Header, Sider, Content } = Layout;
-
-const StyledLayout = styled(Layout)`
-  min-height: 100vh;
-`;
-
-const StyledHeader = styled(Header)`
-  background: #001529;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-`;
-
-const Logo = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-  color: #1890ff;
-`;
-
-const UserInfo = styled.div`
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
-
-const StyledContent = styled(Content)`
-  margin: 24px;
-  padding: 24px;
-  background: white;
-  border-radius: 8px;
-  min-height: 280px;
-`;
+const {  Sider  } = Layout;
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -94,7 +60,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <Logo>Pro Sigma</Logo>
         <UserInfo>
           <span>{session?.user?.email}</span>
-          <span>Plano: {(session?.user as any)?.plan}</span>
+          <span>Plano: {(session?.user)?.plan}</span>
           <LanguageSwitcher />
           <LogoutOutlined
             onClick={() => signOut()}

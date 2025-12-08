@@ -5,10 +5,11 @@ import { useSession } from 'next-auth/react';
 import { Button, Tag, Modal, Radio, Form, Input, message, Divider } from 'antd';
 import { CheckOutlined, CreditCardOutlined, LockOutlined, SafetyOutlined } from '@ant-design/icons';
 import { DashboardLayout } from '@/components/layout';
-import { ProtectedRoute } from '@/components/auth';
+import { withAuth } from '@/components/auth';
+import { useAuth } from '@/hooks';
 import api from '@/lib/api/axios';
 import { PLAN_FEATURES, PLAN_PRICES } from '@/lib/constants/plans';
-import type { PlanType } from '@/types/auth';
+import { PlanType, AVAILABLE_PLANS } from '@/types';
 import {
   PageContainer,
   PageHeader,
@@ -43,16 +44,14 @@ interface PaymentFormData {
 
 function PlansPage() {
   const { data: session, update } = useSession();
+  const { user, plan: currentPlan, isAdmin } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'credit_card' | 'pix' | 'boleto'>('credit_card');
   const [form] = Form.useForm();
 
-  const currentPlan = session?.user?.plan as PlanType;
-  const isAdmin = session?.user?.isAdmin;
-
-  const plans: PlanType[] = ['basico', 'intermediario', 'pro'];
+  const plans = AVAILABLE_PLANS;
 
   const isPlanDisabled = (plan: PlanType): boolean => {
     if (isAdmin) return true; // Admin não pode mudar de plano
@@ -61,8 +60,13 @@ function PlansPage() {
 
   const getPlanAction = (plan: PlanType): string => {
     if (plan === currentPlan) return 'Plano Atual';
-    const planOrder = { basico: 1, intermediario: 2, pro: 3 };
-    return planOrder[plan] > planOrder[currentPlan] ? 'Fazer Upgrade' : 'Fazer Downgrade';
+    const planOrder: Record<string, number> = {
+      [PlanType.BASICO]: 1,
+      [PlanType.INTERMEDIARIO]: 2,
+      [PlanType.PRO]: 3
+    };
+    const currentPlanOrder = currentPlan ? planOrder[currentPlan] || 0 : 0;
+    return planOrder[plan] > currentPlanOrder ? 'Fazer Upgrade' : 'Fazer Downgrade';
   };
 
   const handleSelectPlan = (plan: PlanType) => {
@@ -195,30 +199,28 @@ function PlansPage() {
       );
     }
   };
-
   return (
-    <ProtectedRoute>
-      <DashboardLayout>
-        <PageContainer>
-          <PageHeader>
-            <Title>Gerenciar Plano</Title>
-            <Subtitle>
-              {isAdmin
-                ? 'Você é um administrador e tem acesso total à plataforma'
-                : `Seu plano atual: ${currentPlan?.charAt(0).toUpperCase()}${currentPlan?.slice(1)} - Escolha um novo plano para upgrade ou downgrade`
-              }
-            </Subtitle>
-          </PageHeader>
+    <DashboardLayout>
+      <PageContainer>
+        <PageHeader>
+          <Title>Gerenciar Plano</Title>
+          <Subtitle>
+            {isAdmin
+              ? 'Você é um administrador e tem acesso total à plataforma'
+              : `Seu plano atual: ${currentPlan?.charAt(0).toUpperCase()}${currentPlan?.slice(1)} - Escolha um novo plano para upgrade ou downgrade`
+            }
+          </Subtitle>
+        </PageHeader>
 
-          <PlansGrid>
-            {plans.map((plan) => {
-              const isCurrentPlan = plan === currentPlan;
-              const isDisabled = isPlanDisabled(plan);
-              const features = [
-                ...PLAN_FEATURES.basico,
-                ...(plan !== 'basico' ? PLAN_FEATURES.intermediario : []),
-                ...(plan === 'pro' ? PLAN_FEATURES.pro : []),
-              ];
+        <PlansGrid>
+          {plans.map((plan) => {
+            const isCurrentPlan = plan === currentPlan;
+            const isDisabled = isPlanDisabled(plan);
+            const features = [
+              ...PLAN_FEATURES[PlanType.BASICO],
+              ...(plan !== PlanType.BASICO ? PLAN_FEATURES[PlanType.INTERMEDIARIO] : []),
+              ...(plan === PlanType.PRO ? PLAN_FEATURES[PlanType.PRO] : []),
+            ];
 
               return (
                 <PlanCard
@@ -361,8 +363,8 @@ function PlansPage() {
           </Modal>
         </PageContainer>
       </DashboardLayout>
-    </ProtectedRoute>
   );
 }
 
-export default PlansPage;
+// Protege a rota - requer autenticação básica (qualquer usuário logado)
+export default withAuth(PlansPage);

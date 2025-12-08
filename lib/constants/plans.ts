@@ -1,5 +1,7 @@
-export const PLAN_FEATURES = {
-  basico: [
+import { PlanType } from "@/types/plan";
+
+export const PLAN_FEATURES: Record<PlanType, string[]> = {
+  [PlanType.BASICO]: [
     'Variability',
     'Indice de Capacidade de Processo',
     'Teste de Hipotese',
@@ -7,14 +9,14 @@ export const PLAN_FEATURES = {
     'Analise de Distribuição',
     'COV EMS',
   ],
-  intermediario: [
+  [PlanType.INTERMEDIARIO]: [
     'Analise de Texto',
     'Teste de Normalização',
     'Cartas de Controle',
     'Dashboard',
     'Monte Carlo',
   ],
-  pro: [
+  [PlanType.PRO]: [
     'Regressão Simples',
     'Regressão Multipla',
     'Multivariate',
@@ -23,12 +25,18 @@ export const PLAN_FEATURES = {
     'Space Filling',
     'Custos de Garantia',
   ],
+  [PlanType.ADMIN]: [
+    'Acesso Total à Plataforma',
+    'Gerenciamento de Usuários',
+    'Configurações do Sistema',
+    'Analytics Completo',
+    'Logs e Auditoria',
+  ],
 };
 
-export const PLAN_PRICES = {
-  basico: 49.90,
-  intermediario: 99.90,
-  pro: 199.90,
+export const PLAN_PRICES: Record<PlanType, number> = {
+  [PlanType.BASICO]: 49.90,
+  [PlanType.INTERMEDIARIO]: 99.90,
+  [PlanType.PRO]: 199.90,
+  [PlanType.ADMIN]: 0, // Admin não paga
 };
-
-export type PlanType = 'basico' | 'intermediario' | 'pro';

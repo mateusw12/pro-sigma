@@ -1,7 +1,15 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import type { Session } from '@/types/auth';
+import type { Session } from '@/types/auth/auth';
+import { getRoleFromPlan, isAdmin, UserRole } from '@/types/roles';
+
+/**
+ * Verifica se um role tem permissão suficiente
+ */
+function hasPermission(userRole: UserRole, requiredRole: UserRole): boolean {
+  return userRole >= requiredRole;
+}
 
 export interface UseAuthReturn {
   user: Session['user'] | null;
@@ -9,6 +17,8 @@ export interface UseAuthReturn {
   isLoading: boolean;
   isAdmin: boolean;
   plan: string | null;
+  role: UserRole;
+  hasRole: (requiredRole: UserRole) => boolean;
 }
 
 /**
@@ -20,11 +30,27 @@ export function useAuth(): UseAuthReturn {
   const isLoading = status === 'loading';
   const isAuthenticated = status === 'authenticated' && !!session?.user;
 
+  // Determinar role do usuário
+  const role = isAuthenticated
+    ? session?.user?.isAdmin
+      ? UserRole.ADMIN
+      : getRoleFromPlan(session?.user?.plan)
+    : UserRole.GUEST;
+
+  /**
+   * Verifica se o usuário tem um role específico ou superior
+   */
+  const hasRole = (requiredRole: UserRole): boolean => {
+    return hasPermission(role, requiredRole);
+  };
+
   return {
     user: session?.user ?? null,
     isAuthenticated,
     isLoading,
-    isAdmin: session?.user?.isAdmin ?? false,
+    isAdmin: isAdmin(role),
     plan: session?.user?.plan ?? null,
+    role,
+    hasRole,
   };
 }

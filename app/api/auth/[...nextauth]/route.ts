@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import api from '@/lib/api/axios';
-import type { User } from '@/types/auth';
+import type { User } from '@/types/auth/auth';
 import { findUserByCredentials } from '@/lib/data/mockUsers';
 
 export const authOptions: NextAuthOptions = {

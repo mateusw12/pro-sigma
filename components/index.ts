@@ -5,7 +5,7 @@ export * from './auth';
 export * from './layout';
 
 // Common components
-export * from './common';
+export * from './common/language-switcher';
 
 // Analysis components
 export * from './analysis';

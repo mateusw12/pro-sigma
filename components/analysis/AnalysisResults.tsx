@@ -1,64 +1,8 @@
 "use client";
 
 import { Modal, Statistic, Row, Col, Card } from "antd";
-import styled from "styled-components";
-
-const ResultSection = styled.div`
-  margin-bottom: 24px;
-`;
-
-const StatCard = styled(Card)`
-  text-align: center;
-  margin-bottom: 16px;
-`;
-
-interface VariabilityResult {
-  mean?: number;
-  std?: number;
-  cv?: number;
-  range?: number;
-  min?: number;
-  max?: number;
-  q1?: number;
-  q2?: number;
-  q3?: number;
-  variance?: number;
-  iqr?: number;
-}
-
-interface ProcessCapabilityResult {
-  cp?: number;
-  cpk?: number;
-  pp?: number;
-  ppk?: number;
-  mean?: number;
-  std?: number;
-  within_spec?: number;
-}
-
-interface HypothesisTestResult {
-  statistic?: number;
-  pvalue?: number;
-  alpha?: number;
-  reject_null?: boolean;
-  conclusion?: string;
-  confidence_interval?: [number, number];
-}
-
-interface RegressionResult {
-  equation?: string;
-  r_squared?: number;
-  slope?: number;
-  intercept?: number;
-  p_value?: number;
-}
-
-interface AnalysisResultsProps {
-  visible: boolean;
-  onClose: () => void;
-  toolName: string;
-  results: Record<string, unknown> | null;
-}
+import { AnalysisResultsProps, VariabilityResult, ProcessCapabilityResult, HypothesisTestResult, RegressionResult } from "./analysisResults.interface";
+import { ResultSection, StatCard } from "./styled";
 
 const AnalysisResults = ({
   visible,
