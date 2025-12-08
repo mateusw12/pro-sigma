@@ -1,10 +1,10 @@
 'use client';
 
-import { SimpleRegressionResult } from '@/components/analysis/simple-regression';
+import { TextAnalysisResult } from '@/components/analysis/text-analysis';
 import { ProtectedRoute } from '@/components/auth';
 import { DashboardLayout } from '@/components/layout';
-import { MOCK_SIMPLE_REGRESSION } from '@/lib/backend-mock/simple-regression';
 import { MOCK_STATISTIC_DESCRIPTIVE } from '@/lib/backend-mock/statistic-descriptive';
+import { MOCK_TEXT_ANALYSIS } from '@/lib/backend-mock/text-analysis';
 import { PlanType } from '@/types/plan';
 import {
   DeleteOutlined,
@@ -299,12 +299,12 @@ const WorkspacePage = () => {
             ))}
           </ToolsGrid>
 
-          {/* Exemplo: Regressão Simples */}
+          {/* Exemplo: Análise de Texto */}
           <div style={{ marginTop: 32 }}>
             <h2 style={{ marginBottom: 16, fontSize: 20 }}>
-              Exemplo: Regressão Linear Simples
+              Exemplo: Análise de Texto e Frequência
             </h2>
-            <SimpleRegressionResult data={MOCK_SIMPLE_REGRESSION} />
+            <TextAnalysisResult data={MOCK_TEXT_ANALYSIS} />
           </div>
 
           <Modal
