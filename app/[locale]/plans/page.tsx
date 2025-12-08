@@ -9,7 +9,6 @@ import { withAuth } from '@/components/auth';
 import { useAuth } from '@/hooks';
 import api from '@/lib/api/axios';
 import { PLAN_FEATURES, PLAN_PRICES } from '@/lib/constants/plans';
-import { PlanType, AVAILABLE_PLANS } from '@/types';
 import {
   PageContainer,
   PageHeader,
@@ -33,6 +32,7 @@ import {
   SummaryBox,
   SummaryRow,
 } from './styles';
+import { PlanType, AVAILABLE_PLANS } from '@/types/plan';
 
 interface PaymentFormData {
   paymentMethod: 'credit_card' | 'pix' | 'boleto';
