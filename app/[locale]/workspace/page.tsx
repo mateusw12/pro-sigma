@@ -1,8 +1,9 @@
 'use client';
 
-import { DescriptiveStatsResult } from '@/components/analysis/descriptive-stats';
+import { SimpleRegressionResult } from '@/components/analysis/simple-regression';
 import { ProtectedRoute } from '@/components/auth';
 import { DashboardLayout } from '@/components/layout';
+import { MOCK_SIMPLE_REGRESSION } from '@/lib/backend-mock/simple-regression';
 import { MOCK_STATISTIC_DESCRIPTIVE } from '@/lib/backend-mock/statistic-descriptive';
 import { PlanType } from '@/types/plan';
 import {
@@ -298,15 +299,13 @@ const WorkspacePage = () => {
             ))}
           </ToolsGrid>
 
-          {/* Exibir resultado da análise */}
-          {analysisResult && analysisResult.tool === 'descriptive-stats' && (
-            <div style={{ marginTop: 32 }}>
-              <DescriptiveStatsResult
-                data={analysisResult.data}
-                onClose={() => setAnalysisResult(null)}
-              />
-            </div>
-          )}
+          {/* Exemplo: Regressão Simples */}
+          <div style={{ marginTop: 32 }}>
+            <h2 style={{ marginBottom: 16, fontSize: 20 }}>
+              Exemplo: Regressão Linear Simples
+            </h2>
+            <SimpleRegressionResult data={MOCK_SIMPLE_REGRESSION} />
+          </div>
 
           <Modal
             title={`${t('analysis')}: ${availableTools.find((t) => t.key === selectedTool)?.name}`}
