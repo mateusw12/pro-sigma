@@ -1,7 +1,6 @@
 'use client';
 
-import DashboardLayout from '@/components/DashboardLayout';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import { DashboardLayout, ProtectedRoute } from '@/components';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Select } from 'antd';
 import styled from 'styled-components';
@@ -32,7 +31,7 @@ const NormalizationTestPage = () => {
                   Anderson-Darling
                 </Select.Option>
                 <Select.Option value="dagostino">
-                  D'Agostino-Pearson
+                  DAgostino-Pearson
                 </Select.Option>
               </Select>
             </Form.Item>

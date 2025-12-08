@@ -1,0 +1,1 @@
+export { NormalizationTestResult } from './NormalizationTestResult';

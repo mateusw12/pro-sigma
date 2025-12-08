@@ -1,7 +1,6 @@
 'use client';
 
-import DashboardLayout from '@/components/DashboardLayout';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import { DashboardLayout, ProtectedRoute } from '@/components';
 import { TableOutlined } from '@ant-design/icons';
 import { Card, Table } from 'antd';
 import styled from 'styled-components';

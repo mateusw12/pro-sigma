@@ -22,13 +22,6 @@ export function getTools(tTools: any) {
       description: tTools('hypothesisTestDesc'),
     },
     {
-      key: 'distribution-test',
-      name: tTools('distributionTest'),
-      icon: '📈',
-      plan: 'basico',
-      description: tTools('distributionTestDesc'),
-    },
-    {
       key: 'descriptive-stats',
       name: tTools('descriptiveStats'),
       icon: '📋',
