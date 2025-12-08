@@ -1,30 +1,27 @@
 'use client';
 
-import { useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { useTranslations, useLocale } from 'next-intl';
-import { DashboardLayout } from '@/components/layout';
 import { ProtectedRoute } from '@/components/auth';
-import { Card, Upload, Button, Table, message, Modal, Select, Row, Col, Tag } from 'antd';
-import {
-  UploadOutlined,
-  FileExcelOutlined,
-  DeleteOutlined,
-  FundOutlined,
-  LockOutlined,
-} from '@ant-design/icons';
-import type { UploadFile } from 'antd/es/upload/interface';
+import { DashboardLayout } from '@/components/layout';
 import api from '@/lib/api/axios';
-import type { PlanType } from '@/types/auth/auth';
+import { PlanType } from '@/types/plan';
 import {
-  PageContainer,
-  Title,
-  Subtitle,
-  UploadSection,
-  FileInfo,
-  ToolsGrid,
-  ToolCard,
+  DeleteOutlined,
+  FileExcelOutlined,
+  FundOutlined,
+} from '@ant-design/icons';
+import { Button, message, Modal, Select, Table, Tag, Upload } from 'antd';
+import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import {
   DataPreview,
+  FileInfo,
+  PageContainer,
+  Subtitle,
+  Title,
+  ToolCard,
+  ToolsGrid,
+  UploadSection,
 } from './styles';
 
 interface FileData {
@@ -40,7 +37,6 @@ const WorkspacePage = () => {
   const t = useTranslations('workspace');
   const tTools = useTranslations('tools');
   const tCommon = useTranslations('common');
-  const locale = useLocale();
   const [uploadedFile, setUploadedFile] = useState<FileData | null>(null);
   const [loading, setLoading] = useState(false);
   const [selectedTool, setSelectedTool] = useState<string | null>(null);

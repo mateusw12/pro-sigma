@@ -1,18 +1,18 @@
 'use client';
 
-import { DashboardLayout } from '@/components/layout';
 import { ProtectedRoute } from '@/components/auth';
-import { Card, Row, Col, Statistic, Button } from 'antd';
+import { DashboardLayout } from '@/components/layout';
 import {
   BarChartOutlined,
-  LineChartOutlined,
-  FundOutlined,
   ExperimentOutlined,
   FileAddOutlined,
+  FundOutlined,
+  LineChartOutlined,
 } from '@ant-design/icons';
+import { Button, Card, Col, Row, Statistic } from 'antd';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useTranslations, useLocale } from 'next-intl';
-import { Title, StyledCard, QuickAccessCard } from './styles';
+import { QuickAccessCard, StyledCard, Title } from './styles';
 
 const DashboardPage = () => {
   const router = useRouter();
