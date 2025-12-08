@@ -1,8 +1,9 @@
 'use client';
 
+import { DescriptiveStatsResult } from '@/components/analysis/descriptive-stats';
 import { ProtectedRoute } from '@/components/auth';
 import { DashboardLayout } from '@/components/layout';
-import api from '@/lib/api/axios';
+import { MOCK_STATISTIC_DESCRIPTIVE } from '@/lib/backend-mock/statistic-descriptive';
 import { PlanType } from '@/types/plan';
 import {
   DeleteOutlined,
@@ -23,13 +24,20 @@ import {
   ToolsGrid,
   UploadSection,
 } from './styles';
+import { getTools } from './tools.helper';
 
 interface FileData {
   id: string;
   name: string;
   columns: string[];
-  preview: any[];
+  preview: Record<string, unknown>[];
   uploadedAt: Date;
+}
+
+interface AnalysisResult {
+  tool: string;
+  data: typeof MOCK_STATISTIC_DESCRIPTIVE;
+  timestamp: Date;
 }
 
 const WorkspacePage = () => {
@@ -42,160 +50,28 @@ const WorkspacePage = () => {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
   const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(
+    null,
+  );
 
-  const userPlan = (session?.user?.plan as PlanType) || 'basico';
+  const userPlan = (session?.user?.plan as PlanType) || PlanType.BASICO;
   const isAdmin = session?.user?.isAdmin;
 
-  const tools = [
-    {
-      key: 'variability',
-      name: tTools('variability'),
-      icon: '📊',
-      plan: 'basico',
-      description: tTools('variabilityDesc'),
-    },
-    {
-      key: 'process-capability',
-      name: tTools('processCapability'),
-      icon: '🎯',
-      plan: 'basico',
-      description: tTools('processCapabilityDesc'),
-    },
-    {
-      key: 'hypothesis-test',
-      name: tTools('hypothesisTest'),
-      icon: '🔬',
-      plan: 'basico',
-      description: tTools('hypothesisTestDesc'),
-    },
-    {
-      key: 'distribution-test',
-      name: tTools('distributionTest'),
-      icon: '📈',
-      plan: 'basico',
-      description: tTools('distributionTestDesc'),
-    },
-    {
-      key: 'descriptive-stats',
-      name: tTools('descriptiveStats'),
-      icon: '📋',
-      plan: 'basico',
-      description: tTools('descriptiveStatsDesc'),
-    },
-    {
-      key: 'cov-ems',
-      name: tTools('covEms'),
-      icon: '⚡',
-      plan: 'basico',
-      description: tTools('covEmsDesc'),
-    },
-    {
-      key: 'control-charts',
-      name: tTools('controlCharts'),
-      icon: '📉',
-      plan: 'intermediario',
-      description: tTools('controlChartsDesc'),
-    },
-    {
-      key: 'normalization-test',
-      name: tTools('normalizationTest'),
-      icon: '🔔',
-      plan: 'intermediario',
-      description: tTools('normalizationTestDesc'),
-    },
-    {
-      key: 'text-analysis',
-      name: tTools('textAnalysis'),
-      icon: '📝',
-      plan: 'intermediario',
-      description: tTools('textAnalysisDesc'),
-    },
-    {
-      key: 'monte-carlo',
-      name: tTools('monteCarlo'),
-      icon: '🎲',
-      plan: 'intermediario',
-      description: tTools('monteCarloDesc'),
-    },
-    {
-      key: 'simple-regression',
-      name: tTools('simpleRegression'),
-      icon: '📐',
-      plan: 'pro',
-      description: tTools('simpleRegressionDesc'),
-    },
-    {
-      key: 'multiple-regression',
-      name: tTools('multipleRegression'),
-      icon: '📊',
-      plan: 'pro',
-      description: tTools('multipleRegressionDesc'),
-    },
-    {
-      key: 'multivariate',
-      name: tTools('multivariate'),
-      icon: '🔀',
-      plan: 'pro',
-      description: tTools('multivariateDesc'),
-    },
-    {
-      key: 'doe',
-      name: tTools('doe'),
-      icon: '🧪',
-      plan: 'pro',
-      description: tTools('doeDesc'),
-    },
-    {
-      key: 'stackup',
-      name: tTools('stackup'),
-      icon: '📏',
-      plan: 'pro',
-      description: tTools('stackupDesc'),
-    },
-    {
-      key: 'space-filling',
-      name: tTools('spaceFilling'),
-      icon: '🎯',
-      plan: 'pro',
-      description: tTools('spaceFillingDesc'),
-    },
-    {
-      key: 'warranty-costs',
-      name: tTools('warrantyCosts'),
-      icon: '💰',
-      plan: 'pro',
-      description: tTools('warrantyCostsDesc'),
-    },
-  ];
+  const tools = getTools(tTools);
 
   // Filtrar ferramentas baseado no plano do usuário
   const getAvailableTools = () => {
     if (isAdmin) return tools; // Admin tem acesso a tudo
 
     const planHierarchy: { [key in PlanType]: string[] } = {
-      basico: ['basico'],
-      intermediario: ['basico', 'intermediario'],
-      pro: ['basico', 'intermediario', 'pro'],
-      admin: ['basico', 'intermediario', 'pro'],
+      basico: [PlanType.BASICO],
+      intermediario: [PlanType.BASICO, PlanType.INTERMEDIARIO],
+      pro: [PlanType.BASICO, PlanType.INTERMEDIARIO, PlanType.PRO],
+      admin: [PlanType.BASICO, PlanType.INTERMEDIARIO, PlanType.PRO],
     };
 
-    const allowedPlans = planHierarchy[userPlan] || ['basico'];
+    const allowedPlans = planHierarchy[userPlan] || PlanType.BASICO;
     return tools.filter((tool) => allowedPlans.includes(tool.plan));
-  };
-
-  const isToolLocked = (toolPlan: string) => {
-    if (isAdmin) return false;
-
-    const planOrder: { [key: string]: number } = {
-      basico: 1,
-      intermediario: 2,
-      pro: 3,
-    };
-
-    const userPlanLevel = planOrder[userPlan] || 1;
-    const toolPlanLevel = planOrder[toolPlan] || 1;
-
-    return toolPlanLevel > userPlanLevel;
   };
 
   const availableTools = getAvailableTools();
@@ -206,24 +82,32 @@ const WorkspacePage = () => {
     formData.append('file', file);
 
     try {
-      const response = await api.post('/api/files/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      // Usar a rota da API Next.js ao invés de chamar o backend diretamente
+      const response = await fetch('/api/files/upload', {
+        method: 'POST',
+        body: formData,
       });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Erro ao fazer upload');
+      }
+
+      const data = await response.json();
+
       const fileData: FileData = {
-        id: response.data.id,
+        id: data.id,
         name: file.name,
-        columns: response.data.columns,
-        preview: response.data.preview,
+        columns: data.columns,
+        preview: data.preview,
         uploadedAt: new Date(),
       };
 
       setUploadedFile(fileData);
       message.success(t('fileUploaded'));
     } catch (error) {
-      message.error(t('uploadError'));
+      console.error('Erro no upload:', error);
+      message.error(error instanceof Error ? error.message : t('uploadError'));
     } finally {
       setLoading(false);
     }
@@ -232,13 +116,18 @@ const WorkspacePage = () => {
   };
 
   const handleToolClick = (toolKey: string) => {
-    if (!uploadedFile) {
-      message.warning(t('uploadFileFirst'));
-      return;
+    // if (!uploadedFile) {
+    //   message.warning(t('uploadFileFirst'));
+    //   return;
+    // }
+    if (toolKey === 'descriptive-stats') {
+      const allColumns = Object.keys(MOCK_STATISTIC_DESCRIPTIVE.result);
+      setSelectedColumns(allColumns);
+    } else {
+      setSelectedColumns([]);
     }
 
     setSelectedTool(toolKey);
-    setSelectedColumns([]);
     setIsModalVisible(true);
   };
 
@@ -250,16 +139,36 @@ const WorkspacePage = () => {
 
     setLoading(true);
     try {
-      const response = await api.post(`/api/analyze/${selectedTool}`, {
-        fileId: uploadedFile?.id,
-        columns: selectedColumns,
-      });
+      // const response = await fetch(`/api/analyze/${selectedTool}`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     fileId: uploadedFile?.id,
+      //     columns: selectedColumns,
+      //   }),
+      // });
+
+      // if (!response.ok) {
+      //   throw new Error('Erro na análise');
+      // }
+
+      const data = MOCK_STATISTIC_DESCRIPTIVE; //await response.json();
 
       message.success(t('analysisComplete'));
-      // Aqui você pode exibir os resultados em um modal ou nova página
-      console.log('Resultados:', response.data);
+
+      // Salvar resultado da análise
+      setAnalysisResult({
+        tool: selectedTool || '',
+        data: data,
+        timestamp: new Date(),
+      });
+
+      console.log('Resultados:', data);
       setIsModalVisible(false);
-    } catch (error) {
+    } catch (err) {
+      console.error('Erro na análise:', err);
       message.error(t('analysisError'));
     } finally {
       setLoading(false);
@@ -388,6 +297,16 @@ const WorkspacePage = () => {
               </ToolCard>
             ))}
           </ToolsGrid>
+
+          {/* Exibir resultado da análise */}
+          {analysisResult && analysisResult.tool === 'descriptive-stats' && (
+            <div style={{ marginTop: 32 }}>
+              <DescriptiveStatsResult
+                data={analysisResult.data}
+                onClose={() => setAnalysisResult(null)}
+              />
+            </div>
+          )}
 
           <Modal
             title={`${t('analysis')}: ${availableTools.find((t) => t.key === selectedTool)?.name}`}
