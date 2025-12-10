@@ -43,20 +43,14 @@ export default async function LocaleLayout({
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
+export async function generateMetadata({}: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const messages = await getMessages();
+
   return {
-    title:
-      locale === 'pt'
-        ? 'Pro Sigma - Sistema de Análise Six Sigma'
-        : 'Pro Sigma - Six Sigma Analysis System',
+    title: (messages as any).metadata?.title || 'Pro Sigma',
     description:
-      locale === 'pt'
-        ? 'Plataforma completa para análise de dados Six Sigma'
-        : 'Complete platform for Six Sigma data analysis',
+      (messages as any).metadata?.description || 'Pro Sigma Platform',
   };
 }

@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "title": "Pro Sigma - Sistema de Análise Six Sigma",
+    "description": "Plataforma completa para análise de dados Six Sigma"
+  },
   "common": {
     "loading": "Carregando...",
     "save": "Salvar",
