@@ -48,7 +48,9 @@ const DashboardPage = () => {
                 title={t('analysesPerformed')}
                 value={23}
                 prefix={<BarChartOutlined />}
-                valueStyle={{ color: '#3f8600' }}
+                style={{
+                  color: '#3f8600',
+                }}
               />
             </StyledCard>
           </Col>
@@ -58,7 +60,11 @@ const DashboardPage = () => {
                 title={t('activeProjects')}
                 value={5}
                 prefix={<FundOutlined />}
-                valueStyle={{ color: '#1890ff' }}
+                styles={{
+                  content: {
+                    color: '#1890ff',
+                  },
+                }}
               />
             </StyledCard>
           </Col>
@@ -68,7 +74,11 @@ const DashboardPage = () => {
                 title={t('doeExperiments')}
                 value={8}
                 prefix={<ExperimentOutlined />}
-                valueStyle={{ color: '#cf1322' }}
+                styles={{
+                  content: {
+                    color: '#cf1322',
+                  },
+                }}
               />
             </StyledCard>
           </Col>
@@ -78,7 +88,11 @@ const DashboardPage = () => {
                 title={t('generatedReports')}
                 value={15}
                 prefix={<LineChartOutlined />}
-                valueStyle={{ color: '#722ed1' }}
+                styles={{
+                  content: {
+                    color: '#722ed1',
+                  },
+                }}
               />
             </StyledCard>
           </Col>
@@ -86,14 +100,14 @@ const DashboardPage = () => {
 
         <Row gutter={16} style={{ marginTop: 24 }}>
           <Col span={12}>
-            <Card title={t('recentAnalyses')} bordered={false}>
+            <Card title={t('recentAnalyses')}>
               <p>Análise de Variabilidade - Produto A</p>
               <p>Teste de Hipótese - Lote 123</p>
               <p>Monte Carlo - Simulação Processo X</p>
             </Card>
           </Col>
           <Col span={12}>
-            <Card title={t('mostUsedTools')} bordered={false}>
+            <Card title={t('mostUsedTools')}>
               <p>1. Variability</p>
               <p>2. Teste de Hipótese</p>
               <p>3. Cartas de Controle</p>
