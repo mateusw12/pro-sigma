@@ -11,13 +11,21 @@ import {
   HistoryTitle,
 } from '@/components/history/styled';
 import { DashboardLayout } from '@/components/layout';
-import { mockHistoryAnalyses, mockHistoryFiles } from '@/lib/data/mockHistory';
+import { useAnalysisHistory } from '@/hooks';
+import { mockHistoryFiles } from '@/lib/data/mockHistory';
 import { ExperimentOutlined, FileOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
 export default function HistoryPage() {
   const t = useTranslations('history');
+  const { history: analysisHistory, isLoading } = useAnalysisHistory();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const items = [
     {
@@ -53,14 +61,14 @@ export default function HistoryPage() {
       ),
       children: (
         <div>
-          {mockHistoryAnalyses.length > 0 ? (
-            mockHistoryAnalyses
+          {analysisHistory.length > 0 ? (
+            analysisHistory
               .sort(
-                (a, b) =>
+                (a: any, b: any) =>
                   new Date(b.executedAt).getTime() -
                   new Date(a.executedAt).getTime(),
               )
-              .map((analysis) => (
+              .map((analysis: any) => (
                 <AnalysisHistoryItemWithDetails
                   key={analysis.id}
                   analysis={analysis}

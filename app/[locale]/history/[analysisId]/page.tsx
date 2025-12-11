@@ -1,6 +1,7 @@
 'use client';
 
 import { DashboardLayout, ProtectedRoute } from '@/components';
+import { renderAnalysisResults } from '@/components/analysis/analysisTypeMapper';
 import {
   BackButton,
   ChartContainer,
@@ -10,12 +11,10 @@ import {
   DetailTitle,
   InfoCard,
   InfoGrid,
-  JSONResultsContainer,
-  ResultCard,
-  ResultsGrid,
   SectionTitle,
 } from '@/components/history/details-styled';
-import { mockHistoryAnalyses, mockHistoryFiles } from '@/lib/data/mockHistory';
+import { useAnalysisHistory } from '@/hooks';
+import { mockHistoryFiles } from '@/lib/data/mockHistory';
 import { HistoryAnalysis, HistoryFile } from '@/types/history';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import {
@@ -45,13 +44,12 @@ export default function AnalysisDetailPage({
   const [file, setFile] = useState<HistoryFile | null>(null);
   const router = useRouter();
   const locale = useLocale();
+  const { getAnalysisById } = useAnalysisHistory();
 
   useEffect(() => {
     params.then((p) => {
       setParam(p);
-      const foundAnalysis = mockHistoryAnalyses.find(
-        (a) => a.id === p.analysisId,
-      );
+      const foundAnalysis = getAnalysisById(p.analysisId);
       setAnalysis(foundAnalysis || null);
 
       if (foundAnalysis) {
@@ -61,7 +59,7 @@ export default function AnalysisDetailPage({
         setFile(foundFile || null);
       }
     });
-  }, [params]);
+  }, [params, getAnalysisById]);
 
   if (!analysis) {
     return (
@@ -86,145 +84,6 @@ export default function AnalysisDetailPage({
   const executedDate = new Date(analysis.executedAt).toLocaleString('pt-BR');
   const durationMs = analysis.duration;
   const durationSeconds = (durationMs / 1000).toFixed(2);
-
-  const renderResults = () => {
-    if (!analysis.results) return null;
-
-    switch (analysis.type) {
-      case 'Estatística Descritiva':
-        return (
-          <ResultsGrid>
-            {Object.entries(analysis.results).map(([key, value]) => (
-              <ResultCard key={key}>
-                <span className="label">{key}</span>
-                <span className="value">
-                  {typeof value === 'number'
-                    ? (value as number).toFixed(2)
-                    : String(value as any)}
-                </span>
-              </ResultCard>
-            ))}
-          </ResultsGrid>
-        );
-
-      case 'Teste de Hipótese':
-        return (
-          <ResultsGrid>
-            <ResultCard
-              className={analysis.results.significant ? 'success' : 'warning'}
-            >
-              <span className="label">T Statistic</span>
-              <span className="value">
-                {analysis.results.tStatistic?.toFixed(2)}
-              </span>
-            </ResultCard>
-            <ResultCard
-              className={analysis.results.pValue < 0.05 ? 'success' : 'warning'}
-            >
-              <span className="label">P-Value</span>
-              <span className="value">
-                {analysis.results.pValue?.toFixed(4)}
-              </span>
-            </ResultCard>
-            <ResultCard
-              className={analysis.results.significant ? 'success' : 'danger'}
-            >
-              <span className="label">Significante?</span>
-              <span className="value">
-                {analysis.results.significant ? 'Sim' : 'Não'}
-              </span>
-            </ResultCard>
-          </ResultsGrid>
-        );
-
-      case 'Regressão Simples':
-        return (
-          <ResultsGrid>
-            <ResultCard>
-              <span className="label">R² (R-Squared)</span>
-              <span className="value">
-                {(analysis.results.rSquared * 100).toFixed(1)}%
-              </span>
-            </ResultCard>
-            <ResultCard>
-              <span className="label">Slope</span>
-              <span className="value">
-                {analysis.results.slope?.toFixed(4)}
-              </span>
-            </ResultCard>
-            <ResultCard>
-              <span className="label">Intercept</span>
-              <span className="value">
-                {analysis.results.intercept?.toFixed(2)}
-              </span>
-            </ResultCard>
-          </ResultsGrid>
-        );
-
-      case 'Capacidade de Processo':
-        return (
-          <ResultsGrid>
-            <ResultCard
-              className={analysis.results.cp > 1.33 ? 'success' : 'warning'}
-            >
-              <span className="label">Cp</span>
-              <span className="value">{analysis.results.cp?.toFixed(2)}</span>
-            </ResultCard>
-            <ResultCard
-              className={analysis.results.cpk > 1.33 ? 'success' : 'warning'}
-            >
-              <span className="label">Cpk</span>
-              <span className="value">{analysis.results.cpk?.toFixed(2)}</span>
-            </ResultCard>
-            <ResultCard
-              className={analysis.results.pp > 1.33 ? 'success' : 'warning'}
-            >
-              <span className="label">Pp</span>
-              <span className="value">{analysis.results.pp?.toFixed(2)}</span>
-            </ResultCard>
-            <ResultCard
-              className={analysis.results.ppk > 1.33 ? 'success' : 'warning'}
-            >
-              <span className="label">Ppk</span>
-              <span className="value">{analysis.results.ppk?.toFixed(2)}</span>
-            </ResultCard>
-          </ResultsGrid>
-        );
-
-      case 'Teste de Normalização':
-        return (
-          <ResultsGrid>
-            <ResultCard>
-              <span className="label">Teste</span>
-              <span className="value" style={{ fontSize: '14px' }}>
-                {analysis.results.testName}
-              </span>
-            </ResultCard>
-            <ResultCard>
-              <span className="label">Statistic</span>
-              <span className="value">
-                {analysis.results.statistic?.toFixed(4)}
-              </span>
-            </ResultCard>
-            <ResultCard
-              className={analysis.results.normal ? 'success' : 'warning'}
-            >
-              <span className="label">Normal?</span>
-              <span className="value">
-                {analysis.results.normal ? 'Sim' : 'Não'}
-              </span>
-            </ResultCard>
-          </ResultsGrid>
-        );
-
-      default:
-        return (
-          <JSONResultsContainer>
-            {JSON.stringify(analysis.results, null, 2)}
-          </JSONResultsContainer>
-        );
-    }
-  };
 
   return (
     <ProtectedRoute>
@@ -337,13 +196,7 @@ export default function AnalysisDetailPage({
             <>
               <DetailSection>
                 <SectionTitle>📊 Resultados da Análise</SectionTitle>
-                {renderResults()}
-                <ChartContainer style={{ marginTop: '24px' }}>
-                  <strong>Dados Completos (JSON):</strong>
-                  <JSONResultsContainer>
-                    {JSON.stringify(analysis.results, null, 2)}
-                  </JSONResultsContainer>
-                </ChartContainer>
+                {renderAnalysisResults(analysis.type, analysis.results)}
               </DetailSection>
 
               <Divider />
