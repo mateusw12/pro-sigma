@@ -27,6 +27,7 @@
   "nav": {
     "dashboard": "Dashboard",
     "workspace": "Workspace",
+    "history": "History",
     "plans": "My Plan",
     "support": "Support"
   },
@@ -167,6 +168,13 @@
     "faqAnswer1": "Answer...",
     "faqQuestion2": "How to upgrade plan?",
     "faqAnswer2": "Answer..."
+  },
+  "history": {
+    "title": "Analysis History",
+    "uploadedFiles": "Uploaded Files",
+    "performedAnalyses": "Performed Analyses",
+    "noUploadedFiles": "No files have been uploaded yet",
+    "noAnalyses": "No analyses have been performed yet"
   },
   "tools": {
     "variability": "Variability",

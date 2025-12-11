@@ -4,6 +4,7 @@ import {
   BarChartOutlined,
   CreditCardOutlined,
   DashboardOutlined,
+  HistoryOutlined,
   LogoutOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
@@ -45,6 +46,12 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       icon: <BarChartOutlined />,
       label: t('workspace'),
       onClick: () => router.push(`/${locale}/workspace`),
+    },
+    {
+      key: 'history',
+      icon: <HistoryOutlined />,
+      label: t('history'),
+      onClick: () => router.push(`/${locale}/history`),
     },
     {
       key: 'plans',

@@ -27,6 +27,7 @@
   "nav": {
     "dashboard": "Dashboard",
     "workspace": "Workspace",
+    "history": "Histórico",
     "plans": "Meu Plano",
     "support": "Suporte"
   },
@@ -167,6 +168,13 @@
     "faqAnswer1": "Resposta...",
     "faqQuestion2": "Como fazer upgrade do plano?",
     "faqAnswer2": "Resposta..."
+  },
+  "history": {
+    "title": "Histórico de Análises",
+    "uploadedFiles": "Arquivos Enviados",
+    "performedAnalyses": "Análises Realizadas",
+    "noUploadedFiles": "Nenhum arquivo foi enviado ainda",
+    "noAnalyses": "Nenhuma análise foi realizada ainda"
   },
   "tools": {
     "variability": "Variability",
